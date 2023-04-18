@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Elections extends Model
 {
     use HasFactory;
+
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query
+                ->where('description', 'like', '%'.$term.'%');
+        });
+    }
 }

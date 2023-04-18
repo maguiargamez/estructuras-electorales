@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Livewire\Dashboard\DashboardHome;
+use App\Http\Livewire\Election\Elections;
+use App\Http\Livewire\ElectoralStructure\ElectoralStructures;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +22,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::get('/home', DashboardHome::class)->name('dashboard.home');
+
+
+Route::get('/estructura', ElectoralStructures::class)->name('estructura.index');
+Route::get('/elecciones', Elections::class)->name('elecicones.index');
