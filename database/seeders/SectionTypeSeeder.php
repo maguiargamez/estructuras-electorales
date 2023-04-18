@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SectionType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,23 @@ class SectionTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $currentDate= date('Y-m-d h:m:s');
+        SectionType::insert([
+            [
+                'description' => 'Urbano(a)',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ],
+            [
+                'description' => 'Rural',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ],
+            [
+                'description' => 'Mixto(a)',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ],
+        ]);
     }
 }
