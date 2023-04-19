@@ -1,4 +1,20 @@
-<div>
+@section('toolbar-actions')
+    <a href="#" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app">
+        <i class="fa-solid fa-plus"></i> Nueva elección
+    </a>
+
+@endsection
+
+@section('breadcrumb')
+    <x-breadcrumb 
+    :pageTitle="$pageTitle" 
+    :pageBreadcrumb="$pageBreadcrumb"
+    >
+    </x-breadcrumb>
+@endsection
+
+<div>  
+   
     <div class="card card-flush">
 
         <div class="card-header pt-8">
@@ -191,4 +207,11 @@
 
 
     </div>
+
+    <div class="modal d-block" id="exampleModalSizeSm" tabindex="-1" role="dialog" aria-labelledby="exampleModalSizeSm"  data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            ...
+        </div>
+    </div>
+
 </div>

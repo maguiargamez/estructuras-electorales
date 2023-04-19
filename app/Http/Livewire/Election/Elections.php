@@ -16,6 +16,12 @@ class Elections extends Component
     public $paginate = 10;    
     public $search = '';
     public $modelId = null;
+    public $pageTitle = "Elecciones";
+    public $pageBreadcrumb = [
+        "Inicio" => null,
+    ];
+
+    public $showNewElection= false;
 
     protected $listeners = [
         'refresh-data' => '$refresh',
