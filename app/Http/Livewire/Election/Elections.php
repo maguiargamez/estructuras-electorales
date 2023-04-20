@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Election;
 use Livewire\Component;
 use App\Http\Traits\WithSorting;
 use App\Models\Elections as ModelsElections;
+use App\Models\ElectionType;
 use Livewire\WithPagination;
 
 class Elections extends Component
@@ -21,6 +22,9 @@ class Elections extends Component
         "Inicio" => null,
     ];
 
+    public $description ="Test";
+    public $election_type_id= null;
+
     public $showNewElection= false;
 
     protected $listeners = [
@@ -29,7 +33,11 @@ class Elections extends Component
 
     public function render()
     {
-        return view('livewire.elections.index', ['items' => $this->items]);
+        
+        return view('livewire.elections.index', [
+            'items' => $this->items,
+            'electionTypes' => ElectionType::pluck('description', 'id')
+        ]);
     }
 
     public function updatingSelectAllItems()
