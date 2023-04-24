@@ -50,7 +50,7 @@
 						<div class="d-flex flex-column flex-column-fluid">
 
 
-							@include('layouts.app.toolbar')
+							{{-- @include('layouts.app.toolbar') --}}
 
 
 							<!--begin::Content-->
@@ -58,6 +58,7 @@
 
 								<!--begin::Content container-->
 								<div id="kt_app_content_container" class="app-container container-fluid">
+									
 
 									{{ $slot }}								
 
@@ -85,6 +86,8 @@
         <script src="{{ asset('metronic/assets/plugins/global/plugins.bundle.js') }}"></script>
         <script src="{{ asset('metronic/assets/js/scripts.bundle.js') }}"></script>
         <script src="{{ asset('metronic/assets/js/custom/authentication/sign-in/general.js') }}"></script>
+
+		@stack('scripts')
                             
     </body>
 

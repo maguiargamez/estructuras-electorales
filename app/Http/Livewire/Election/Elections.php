@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Election;
 
 use Livewire\Component;
 use App\Http\Traits\WithSorting;
-use App\Models\Elections as ModelsElections;
+use App\Models\Election;
 use App\Models\ElectionType;
 use Livewire\WithPagination;
 
@@ -26,6 +26,7 @@ class Elections extends Component
     public $election_type_id= null;
 
     public $showNewElection= false;
+    public $newElection;
 
     protected $listeners = [
         'refresh-data' => '$refresh',
@@ -86,7 +87,7 @@ class Elections extends Component
 
     public function getItemsQueryProperty()
     {
-        return ModelsElections::query()
+        return Election::query()
             ->search(trim($this->search))
             ->orderBy($this->sortBy, $this->sortDirection);
     }
@@ -94,5 +95,13 @@ class Elections extends Component
     public function getItemsProperty()
     {
         return ($this->itemsQuery->paginate($this->paginate));
+    }
+
+    public function openElectionModal()
+    {
+        $this->newElection= new Election;
+        $this->emit('openElectionModal');
+
+        
     }
 }

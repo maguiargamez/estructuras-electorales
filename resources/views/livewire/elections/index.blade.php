@@ -1,13 +1,3 @@
-@section('toolbar-actions')
-
-
-    <button type="button" class="btn btn-sm btn-primary fw-bold mr-2" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app"> 
-    <!--<button wire:click="$set('showNewElection', true)" type="button" class="btn btn-sm btn-primary fw-bold mr-2"> -->
-        <i class="fa-solid fa-plus"></i> Nueva elección
-    </button>
-
-@endsection
-
 @section('breadcrumb')
     <x-breadcrumb 
     :pageTitle="$pageTitle" 
@@ -17,7 +7,20 @@
 @endsection
 
 <div>  
-   
+    
+    <div id="kt_app_toolbar" class="app-toolbar py-0 py-lg-6">
+        <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
+            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+
+            </div>
+            <div class="d-flex align-items-center gap-2 gap-lg-3">                
+                <button wire:click="openElectionModal" type="button" class="btn btn-sm btn-primary fw-bold mr-2">
+                    <i class="fa-solid fa-plus"></i> Nueva elección
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="card card-flush">
 
         <div class="card-header pt-8">
@@ -209,56 +212,69 @@
         </div>
 
 
-    </div>
-    
-
-
+    </div> 
 		
-		<div class="modal fade" id="kt_modal_create_app"  tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered mw-900px">
-				<div class="modal-content">
+    <div wire:ignore.self class="modal fade" id="election_modal"  tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered mw-900px">
+            <div class="modal-content">
 
-                    <div class="modal-header">
-						<h2>Nueva elección</h2>
-						<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-							<span class="svg-icon svg-icon-1">
-								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-									<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
-								</svg>
-							</span>							
-						</div>						
-					</div>
-
-                    <div class="modal-body py-lg-10 px-lg-10">
-                        <form class="form" sid="kt_modal_create_app_form">
-
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                                    <span class="required">Descripción</span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Especifica el nombre que describa a el proceso electoral"></i>
-                                </label>
-                                <input wire:model="description" type="text" class="form-control form-control-lg form-control-solid" name="description" placeholder="" value="" />
-                            </div>
-
-                            <div class="fv-row mb-10">
-                                <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                                    <span class="required">Tipo de elección</span>
-                                </label>
-
-                                <x-select wire:model="election_type_id" :options="$electionTypes" class="form-control form-control-lg form-control-solid" name="election_type_id"></x-select>
-                            </div>
-
-                        </form>
-                    </div>
-
+                <div class="modal-header">
+                    <h2>Nueva elección</h2>
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+                            </svg>
+                        </span>							
+                    </div>						
                 </div>
+
+                <div class="modal-body py-lg-10 px-lg-10">
+                    
+
+                        <div class="fv-row mb-10">
+                            <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
+                                <span class="required">Descripción</span>
+                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Especifica el nombre que describa a el proceso electoral"></i>
+                            </label>
+                            <input wire:model="newElection.description" type="text" class="form-control form-control-lg form-control-solid" placeholder="" value="" />
+                        </div>
+
+                        <div class="fv-row mb-10">
+                            <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
+                                <span class="required">Tipo de elección</span>
+                            </label>
+
+                            <x-select wire:model="newElection.election_type_id" :options="$electionTypes" class="form-control form-control-lg form-control-solid"></x-select>
+                        </div>
+
+                    
+                </div>
+
             </div>
         </div>
+    </div>
 
      
+
+          
 
 
 </div>
 
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+
+            Livewire.on('openElectionModal', () => {
+                $('#election_modal').modal('show');
+            });
+        });
+            
+        
+
+
+    </script>
+@endpush
 
