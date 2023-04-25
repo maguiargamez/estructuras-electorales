@@ -145,7 +145,7 @@
                                                     </a>
                                                 @else  
                                                 
-                                                        <span class="badge badge-success d-block">Libre</span>
+                                                    <span class="badge badge-success d-block">Libre</span>
                                                     
                                                 @endif
 

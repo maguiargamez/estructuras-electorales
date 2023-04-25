@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('municipalities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('state_id');
-            $table->foreignId('district_id');
+            $table->integer('local_district')->length(5);
+            $table->integer('federal_district')->length(5)->nullable();
             $table->string('key', 255);
             $table->string('description', 255);            
             $table->timestamps();
