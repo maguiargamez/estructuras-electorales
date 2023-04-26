@@ -32,6 +32,16 @@ class Elections extends Component
         'refresh-data' => '$refresh',
     ];
 
+    protected $rules = [      
+        'newElection.election_type_id'=> ['required'],
+        'newElection.description'=> ['required']
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function render()
     {
         

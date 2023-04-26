@@ -239,6 +239,16 @@
                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Especifica el nombre que describa a el proceso electoral"></i>
                             </label>
                             <input wire:model="newElection.description" type="text" class="form-control form-control-lg form-control-solid" placeholder="" value="" />
+
+                            @error('newElection.description')
+                                <div class="fv-plugins-message-container invalid-feedback">
+                                    <div data-field="newElection.description">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+
+                            
                         </div>
 
                         <div class="fv-row mb-10">
@@ -247,6 +257,14 @@
                             </label>
 
                             <x-select wire:model="newElection.election_type_id" :options="$electionTypes" class="form-control form-control-lg form-control-solid"></x-select>
+
+                            @error('newElection.election_type_id')
+                            <div class="fv-plugins-message-container invalid-feedback">
+                                <div data-field="newElection.description">
+                                    {{ $message }}
+                                </div>
+                            </div>
+                        @enderror
                         </div>
 
                     
