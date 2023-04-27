@@ -11,10 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('electoral_structure_members', function (Blueprint $table) {
+        Schema::create('structures', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('electoral_structure_id');
+            $table->foreignId('election_id');
             $table->foreignId('position_id');
+            $table->foreignId('structure_id')->nullable();
+            $table->foreignId('state_id');
+            $table->integer('local_district')->length(5)->nullable();
+            $table->integer('federal_district')->length(5)->nullable();
+            $table->foreignId('municipality_id')->nullable();
+            $table->foreignId('section_id')->nullable();
+            $table->foreignId('zone_id')->nullable();
+            $table->integer('goal')->length(11)->nullable(); 
 
             $table->string('firstname', 255);
             $table->string('lastname', 255);            
@@ -46,8 +54,6 @@ return new class extends Migration
 
             $table->boolean('is_validated')->default(false);
             $table->boolean('was_supported')->default(false);
-            
-            
 
             $table->timestamps();
             $table->softDeletes();
@@ -59,6 +65,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('electoral_structure_members');
+        Schema::dropIfExists('structures');
     }
 };

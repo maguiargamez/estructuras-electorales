@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('election_id');
+            $table->foreignId('election_type_id');
             $table->integer('hierarchy')->length(5);
             $table->string('description', 255);            
             $table->timestamps();
