@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Http\Traits\WithSorting;
 use App\Models\Election;
 use App\Models\ElectionType;
+use App\Models\Municipality;
 use Livewire\WithPagination;
 
 class Elections extends Component
@@ -22,10 +23,8 @@ class Elections extends Component
         "Inicio" => null,
     ];
 
-    public $description ="Test";
-    public $election_type_id= null;
-
     public $showNewElection= false;
+    public $showDiv = false;
     public $newElection;
 
     protected $listeners = [
@@ -34,6 +33,8 @@ class Elections extends Component
 
     protected $rules = [      
         'newElection.election_type_id'=> ['required'],
+        'newElection.state_id'=> ['required'],
+        'newElection.municipality_id'=> ['required'],
         'newElection.description'=> ['required']
     ];
 
@@ -47,7 +48,8 @@ class Elections extends Component
         
         return view('livewire.elections.index', [
             'items' => $this->items,
-            'electionTypes' => ElectionType::pluck('description', 'id')
+            'electionTypes' => ElectionType::pluck('description', 'id'),
+            'municipalities' => Municipality::pluck('description', 'id')
         ]);
     }
 
@@ -111,7 +113,18 @@ class Elections extends Component
     {
         $this->newElection= new Election;
         $this->emit('openElectionModal');
-
         
     }
+
+    public function openDiv()
+    {
+        $this->showDiv =! $this->showDiv;
+    }
+
+    public function updatedNewElectionElectionTypeId($value)
+    {
+        ($value==2) ?  $this->showDiv = true : $this->showDiv = false;
+    }
+
+
 }

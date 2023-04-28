@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <form class="form w-100" method="POST" action="{{ route('login') }}">
     @csrf
 
@@ -31,7 +32,6 @@
         @enderror        
         
     </div>
-
 
 
     <div class="d-grid mb-10">

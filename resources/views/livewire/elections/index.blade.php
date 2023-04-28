@@ -256,16 +256,34 @@
                                 <span class="required">Tipo de elección</span>
                             </label>
 
-                            <x-select wire:model="newElection.election_type_id" :options="$electionTypes" class="form-control form-control-lg form-control-solid"></x-select>
+                            <x-select wire:model="newElection.election_type_id"  :options="$electionTypes" class="form-control form-control-lg form-control-solid"></x-select>
 
                             @error('newElection.election_type_id')
-                            <div class="fv-plugins-message-container invalid-feedback">
-                                <div data-field="newElection.description">
-                                    {{ $message }}
+                                <div class="fv-plugins-message-container invalid-feedback">
+                                    <div data-field="newElection.election_type_id">
+                                        {{ $message }}
+                                    </div>
                                 </div>
-                            </div>
-                        @enderror
+                            @enderror
                         </div>
+
+                        @if ($showDiv)
+                        <div class="fv-row mb-10">
+                            <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
+                                <span class="required">Municipio</span>
+                            </label>
+
+                            <x-select wire:model="newElection.municipality_id" :options="$municipalities" class="form-control form-control-lg form-control-solid"></x-select>
+
+                            @error('newElection.municipality_id')
+                                <div class="fv-plugins-message-container invalid-feedback">
+                                    <div data-field="newElection.municipality_id">
+                                        {{ $message }}
+                                    </div>
+                                </div>
+                            @enderror
+                        </div>
+                        @endif
 
                     
                 </div>
