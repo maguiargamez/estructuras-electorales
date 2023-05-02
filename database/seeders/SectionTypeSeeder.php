@@ -16,12 +16,12 @@ class SectionTypeSeeder extends Seeder
         $currentDate= date('Y-m-d h:m:s');
         SectionType::insert([
             [
-                'description' => 'Urbano(a)',
+                'description' => 'Rural',
                 'created_at' => $currentDate,
                 'updated_at' => $currentDate,
             ],
             [
-                'description' => 'Rural',
+                'description' => 'Urbano(a)',
                 'created_at' => $currentDate,
                 'updated_at' => $currentDate,
             ],

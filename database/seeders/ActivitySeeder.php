@@ -13,7 +13,7 @@ class ActivitySeeder extends Seeder
      */
     public function run(): void
     {
-        Activity::truncate();
+        //Activity::truncate();
         $csvData = fopen(base_path('database/csv/activities.csv'), 'r');
         $titleRow = true;
         $currentDate= date('Y-m-d h:m:s');

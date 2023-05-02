@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('structure_comments', function (Blueprint $table) {
+        Schema::create('structure_promoted_comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('structure_id');
+            $table->foreignId('structure_promoted_id');
             $table->text('comment');
             $table->timestamps();
             $table->softDeletes();
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('structure_comments');
+        Schema::dropIfExists('structure_promoted_comments');
     }
 };

@@ -11,19 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('structures', function (Blueprint $table) {
+        Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('election_id');
-            $table->foreignId('position_id');
-            $table->foreignId('structure_id')->nullable();
-            $table->foreignId('state_id');
-            $table->integer('local_district')->length(5)->nullable();
-            $table->integer('federal_district')->length(5)->nullable();
-            $table->foreignId('municipality_id')->nullable();
-            $table->foreignId('section_id')->nullable();
-            $table->foreignId('zone_id')->nullable();
-            $table->integer('goal')->length(11)->nullable(); 
-
             $table->string('firstname', 255);
             $table->string('lastname', 255);            
             $table->boolean('sex')->default(true);
@@ -39,8 +28,8 @@ return new class extends Migration
             $table->string('zip_code', 255);
             $table->boolean('membership')->default(false);
             $table->boolean('political_organization')->default(false);
-            $table->foreignId('school_grade_id');
-            $table->foreignId('activity_id');
+            $table->foreignId('school_grade_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('activity_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
 
             $table->string('mobile_phone', 255);
             $table->string('house_phone', 255)->nullable();
@@ -65,6 +54,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('structures');
+        Schema::dropIfExists('members');
     }
 };
