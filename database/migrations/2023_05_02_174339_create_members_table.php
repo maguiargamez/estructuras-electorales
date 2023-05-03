@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('position_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('firstname', 255);
             $table->string('lastname', 255);            
             $table->boolean('sex')->default(true);
@@ -43,6 +44,9 @@ return new class extends Migration
 
             $table->boolean('is_validated')->default(false);
             $table->boolean('was_supported')->default(false);
+
+            $table->binary('credential_front')->nullable();
+            $table->binary('credential_back')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

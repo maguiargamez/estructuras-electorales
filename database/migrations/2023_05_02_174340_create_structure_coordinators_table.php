@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('structure_coordinators', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('structure_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();;
-            $table->foreignId('position_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();;            
+
+            
+            $table->foreignId('structure_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+
+            $table->foreignId('position_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();            
             $table->foreignId('structure_coordinator_id')->nullable();
-            $table->foreignId('member_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();;
+            $table->foreignId('member_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('goal')->length(11)->nullable(); 
             $table->timestamps();
             $table->softDeletes();

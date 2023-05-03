@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Member;
 use App\Models\Structure;
+use App\Models\StructureCoordinator;
+use App\Models\StructurePromoted;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -19,6 +22,8 @@ class StructureSeeder extends Seeder
         $titleRow = true;
         $currentDate= date('Y-m-d h:m:s');
         //$finalGoal= 2000000;
+        $prevEntityKey=0;
+        $prevLocalDistrict=0;
 
         while (($data = fgetcsv($csvData, 555, ',')) !== false) {
             if (!$titleRow) {
@@ -28,13 +33,15 @@ class StructureSeeder extends Seeder
 
                 $goal = mt_rand(1,2000);
                 //$finalGoal= $finalGoal-$goal;
+                $entityKey= Str::title(strtolower(trim($data['0'])));
+                $localDistrict= Str::title(strtolower(trim($data['2'])));
 
-                Structure::create([
+                $structure= Structure::create([
                     'election_id'=>1,
-                    'entity_key' => Str::title(strtolower(trim($data['0']))),
+                    'entity_key' => $entityKey,
                     'entity' => 'Chiapas',
                     'federal_district' => Str::title(strtolower(trim($data['1']))),
-                    'local_district' => Str::title(strtolower(trim($data['2']))),
+                    'local_district' => $localDistrict,
                     'municipality_key' => Str::title(strtolower(trim($data['3']))),
                     'municipality' => Str::title(strtolower(trim($data['4']))),
                     'zone_key' => null,
@@ -46,6 +53,57 @@ class StructureSeeder extends Seeder
                     'created_at' => $currentDate,
                     'updated_at' => $currentDate,
                 ]);
+
+
+                if($entityKey!= $prevEntityKey){
+                    $structure_id= $structure->id;
+                    $array= [
+                        'structure_id' => $structure_id,
+                        'position_id'=>1,
+                        'goal'=>0,
+                    ];
+                    
+                    Member::factory()
+                    ->has(
+                        StructureCoordinator::factory()
+                        ->state(function (array $attributes, Member $member) use ($structure_id) {
+                            return [
+                                'structure_id' => $structure_id,
+                                'position_id'=>1,
+                                'goal'=>0,
+                                'member_id' => $member->id
+                            ];
+                        })
+                        , 'structureCoordinators'
+                    )
+                    ->create(['position_id'=>1]);                  
+                    $prevEntityKey = $entityKey;
+
+                }
+
+                if($localDistrict!= $prevLocalDistrict){
+
+                    Member::factory()
+                    ->has(
+                        StructureCoordinator::factory()
+                        ->state(function (array $attributes, Member $member) use ($structure_id) {
+                            return [
+                                'structure_id' => $structure_id,
+                                'position_id'=>2,
+                                'goal'=>0,
+                                'member_id' => $member->id
+                            ];
+                        })
+                        , 'structureCoordinators'
+                    )
+                    ->create(['position_id'=>2]);  
+
+                    $prevLocalDistrict = $localDistrict;
+                }
+
+                $promotedsNumber= mt_rand(1,$goal);
+
+                
             }
             $titleRow = false;
         }
