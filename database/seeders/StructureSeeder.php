@@ -170,10 +170,14 @@ class StructureSeeder extends Seeder
 
                 if(!in_array($section, $arraySections)){
 
-                    Member::factory()
+                    $promoterNumber= mt_rand(1, 5);
+
+                    $promotersGoal= ceil($goal/$promoterNumber);
+
+                    Member::factory( $promoterNumber )
                     ->has(
                         StructureCoordinator::factory()
-                        ->state(function (array $attributes, Member $member) use ($structure) {
+                        ->state(function (array $attributes, Member $member) use ($structure, $promotersGoal) {
                             return [
                                 'election_id'=> 1,
                                 'position_id'=>5,
@@ -186,17 +190,18 @@ class StructureSeeder extends Seeder
                                 'zone_key'=> $structure['zone_key'],                                
                                 'zone'=> $structure['zone'],                                
                                 'section'=> $structure['section'],                               
-                                'goal'=>0, 
+                                'goal'=>$promotersGoal, 
                             ];
                         })
                         , 'structureCoordinators'
                     )
                     ->create(['position_id'=>5]);  
 
-                    $promoters= StructureCoordinator::where('position_id', 5)->where('section', $structure['section']);
+                    $promoters= StructureCoordinator::where('position_id', 5)->where('section', $structure['section'])->get();
+                    $promotedsNumber= mt_rand(1,$promotersGoal);   
 
                     foreach($promoters as $promoter){
-                        Member::factory()
+                        Member::factory($promotedsNumber)
                         ->has(
                             StructurePromoted::factory()
                             ->state(function (array $attributes, Member $member) use ($structure, $promoter) {
@@ -209,13 +214,13 @@ class StructureSeeder extends Seeder
                             , 'structurePromoteds'
                         )
                         ->create(['position_id'=>6]);
-                    }
-
+                    }                    
 
                     array_push($arraySections, $section);
                 }
 
-                $promotedsNumber= mt_rand(1,$goal);                
+
+                             
             }
             $titleRow = false;
         }
