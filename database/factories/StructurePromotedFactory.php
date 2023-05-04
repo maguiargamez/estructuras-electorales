@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Structure;
+use App\Models\StructureCoordinator;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,12 @@ class StructurePromotedFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'structure_id'=> Structure::all()->random()->id,
+            //'structure_coordinator_id' => StructureCoordinator::all()->random()->id,
+            //'member_id' => Member::factory()->create(),
+            'confirmation' => $this->faker->boolean,
+
+  
         ];
     }
 }

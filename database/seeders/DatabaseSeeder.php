@@ -14,9 +14,16 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Administrador',
+            'email' => 'admin@example.com',
+        ]);
+        $this->call(ActivitySeeder::class);
+        $this->call(ElectionTypeSeeder::class);
+        $this->call(ElectionsSeeder::class);
+        $this->call(PositionSeeder::class);
+        $this->call(SchoolGradeSeeder::class);
+        $this->call(SectionTypeSeeder::class);
+        $this->call(SchoolGradeSeeder::class);
     }
 }

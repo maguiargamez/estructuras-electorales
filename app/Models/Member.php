@@ -17,4 +17,9 @@ class Member extends Model
     {
         return $this->hasMany(StructureCoordinator::class);
     }
+
+    public function structurePromoteds(): HasMany
+    {
+        return $this->hasMany(StructurePromoted::class);
+    }
 }
