@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\SanctumAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('login', [SanctumAuthController::class, 'login']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+
+
+
+    Route::post('logout', [SanctumAuthController::class, 'logout']);
+
+
+    /*Route::group(['prefix'=>'my-account','as'=>'my-account.'], function(){
+        Route::post('profile', [SanctumAuthController::class, 'profile']);
+        Route::post('gallery', [SanctumAuthController::class, 'gallery']);
+    });*/
+
+
+
+
 });

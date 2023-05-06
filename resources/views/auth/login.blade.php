@@ -12,9 +12,9 @@
     </div>
     <div class="fv-row mb-8">
 
-        <input id="email" name="email" type="email" placeholder="Email" value="{{ old('email') }}" autocomplete="off" class="form-control bg-transparent @error('email') is-invalid @enderror" autofocus/>
+        <input id="username" name="username" type="username" placeholder="Usuario" value="{{ old('username') }}" autocomplete="off" class="form-control bg-transparent @error('username') is-invalid @enderror" autofocus/>
 
-        @error('email')
+        @error('username')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
