@@ -16,4 +16,9 @@ class StructurePromoted extends Model
     {
         return $this->belongsTo(Member::class);
     }
+
+    public function structure(): BelongsTo
+    {
+        return $this->belongsTo(Structure::class);
+    }
 }

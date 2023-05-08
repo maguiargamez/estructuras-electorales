@@ -19,6 +19,7 @@ class UserPromoterSeeder extends Seeder
 
         foreach($promoters as $promoter){
             $user= User::factory()->create([
+                'structure_coordinator_id' => $promoter->id,
                 'name' => $promoter->member->firstname.' '.$promoter->member->lastname,
                 'username' => $promoter->member->electoral_key,
                 'email' => $promoter->member->email,

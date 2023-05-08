@@ -22,7 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('login', [SanctumAuthController::class, 'login']);
+
+
 Route::get('promoters', [PromotersController::class, 'index']);
+
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
@@ -30,13 +33,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('logout', [SanctumAuthController::class, 'logout']);
 
+    Route::get('promoters/{id}/promoteds', [PromotersController::class, 'promoteds']);
+
+    Route::post('promoters/promoteds/store', [PromotersController::class, 'storePromoted']);
+    Route::put('promoters/promoteds/update/{promoted_id}', [PromotersController::class, 'updatePromoted']);
+    Route::delete('promoters/promoteds/delete/{promoted_id}', [PromotersController::class, 'deletePromoted']);
 
     /*Route::group(['prefix'=>'my-account','as'=>'my-account.'], function(){
         Route::post('profile', [SanctumAuthController::class, 'profile']);
         Route::post('gallery', [SanctumAuthController::class, 'gallery']);
+    });
+
+    Route::group(['prefix'=>'promoters','as'=>'promoters.'], function(){
+
     });*/
-
-
 
 
 });

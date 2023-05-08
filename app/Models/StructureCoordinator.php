@@ -17,4 +17,12 @@ class StructureCoordinator extends Model
     {
         return $this->belongsTo(Member::class);
     }
+
+    static public function promotersList()
+    {
+        return StructureCoordinator::select('structure_coordinators.id', 'members.firstname', 'members.lastname', 'electoral_key', 'structure_coordinators.section', 'structure_coordinators.goal')
+        ->join('members', 'members.id', '=', 'structure_coordinators.member_id')
+        ->where('structure_coordinators.position_id', 5)->orderBy('structure_coordinators.id')
+        ;
+    }
 }

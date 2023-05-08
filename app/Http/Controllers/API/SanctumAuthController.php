@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\LoginRequest;
 use App\Http\Traits\ApiResponser;
+use App\Models\StructureCoordinator;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +28,18 @@ class SanctumAuthController extends Controller
             'email' => $attr['email']
         ]);
 
+        $structureCoordinator= StructureCoordinator::with('member')->where('id', Auth::user()->structure_coordinator_id)->first();
+
         return $this->success([
-            'token' => $user->createToken('API Token')->plainTextToken
+            'token' => $user->createToken('API Token')->plainTextToken,
+            'member' => [
+                'id_structure_coodinator'=> $structureCoordinator->id,
+                'firstname'=> $structureCoordinator->member->firstname,
+                'lastname'=> $structureCoordinator->member->lastname,
+                'electoral_key'=> $structureCoordinator->member->electoral_key,
+                'section'=> $structureCoordinator->section,
+                'goal'=> $structureCoordinator->goal,
+            ]
         ]);
     }
 
@@ -49,11 +60,21 @@ class SanctumAuthController extends Controller
             ];
         }
 
+        $structureCoordinator= StructureCoordinator::with('member')->where('id', Auth::user()->structure_coordinator_id)->first();
+
         return $this->success([
             'token' => auth()->user()->createToken(
                     Auth::user()->username,
                     $abilities
-                )->plainTextToken
+                )->plainTextToken,
+            'member' => [
+                    'id_structure_coodinator'=> $structureCoordinator->id,
+                    'firstname'=> $structureCoordinator->member->firstname,
+                    'lastname'=> $structureCoordinator->member->lastname,
+                    'electoral_key'=> $structureCoordinator->member->electoral_key,
+                    'section'=> $structureCoordinator->section,
+                    'goal'=> $structureCoordinator->goal,
+                ]
         ], 'Sesión iniciada');
 
     }
