@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\PromotersController;
 use App\Http\Controllers\API\SanctumAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::post('login', [SanctumAuthController::class, 'login']);
+Route::get('promoters', [PromotersController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
 

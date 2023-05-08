@@ -39,16 +39,20 @@ class SanctumAuthController extends Controller
             return $this->error('Credentials not match', 401);
         }
 
+        $abilities= ["*"];
+        if(Auth::user()->hasRole('promoter')){
+            $abilities= [
+                'promoteds:create',
+                'promoteds:read',
+                'promoteds:update',
+                'promoteds:delete',
+            ];
+        }
 
         return $this->success([
             'token' => auth()->user()->createToken(
                     Auth::user()->username,
-                    [
-                        'promoteds:create',
-                        'promoteds:read',
-                        'promoteds:update',
-                        'promoteds:delete',
-                    ]
+                    $abilities
                 )->plainTextToken
         ], 'Sesión iniciada');
 
