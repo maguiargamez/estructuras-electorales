@@ -22,7 +22,7 @@ class StructureCoordinator extends Model
     {
         return StructureCoordinator::select('structure_coordinators.id', 'members.firstname', 'members.lastname', 'electoral_key', 'structure_coordinators.section', 'structure_coordinators.goal')
         ->join('members', 'members.id', '=', 'structure_coordinators.member_id')
-        ->where('structure_coordinators.position_id', 5)->orderBy('structure_coordinators.id')
+        ->where('structure_coordinators.position_id', 5)->orderBy('structure_coordinators.id')->orderBy('id', 'desc')
         ;
     }
 }

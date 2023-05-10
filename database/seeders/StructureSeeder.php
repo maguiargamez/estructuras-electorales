@@ -18,7 +18,7 @@ class StructureSeeder extends Seeder
     public function run(): void
     {
         //Structure::truncate();
-        $csvData = fopen(base_path('database/csv/structures.csv'), 'r');
+        $csvData = fopen(base_path('database/csv/structuresFull.csv'), 'r');
         $titleRow = true;
         $currentDate= date('Y-m-d h:m:s');
         //$finalGoal= 2000000;
@@ -34,7 +34,7 @@ class StructureSeeder extends Seeder
                 $time = strtotime(trim($data['1']));
                 $newformat = date('Y-m-d',$time);
 
-                $goal = mt_rand(1,2000);
+                $goal = mt_rand(1,4);
                 //$finalGoal= $finalGoal-$goal;
                 $entityKey= Str::title(strtolower(trim($data['0'])));
                 $entity= 'Chiapas';
@@ -42,6 +42,7 @@ class StructureSeeder extends Seeder
                 $municipalityKey= Str::title(strtolower(trim($data['3'])));
                 $zoneKey= null;
                 $section= Str::title(strtolower(trim($data['5'])));
+                $section_type= Str::title(strtolower(trim($data['7'])));
 
                 $arrayStructure= [
                     'election_id'=>1,
@@ -55,7 +56,7 @@ class StructureSeeder extends Seeder
                     'zone' => null,
                     'section' => $section,
                     'section_type_key' => Str::title(strtolower(trim($data['6']))),
-                    'section_type' => Str::title(strtolower(trim($data['7']))),
+                    'section_type' => $section_type,
                     'goal' => $goal,
                     'created_at' => $currentDate,
                     'updated_at' => $currentDate,
@@ -87,7 +88,11 @@ class StructureSeeder extends Seeder
                         })
                         , 'structureCoordinators'
                     )
-                    ->create(['position_id'=>1]);   
+                    ->create([
+                        'position_id'=>1,
+                        'section'=>$section,
+                        'section_type' => $section_type
+                    ]);   
 
                     array_push($arrayEntityKeys, $entityKey);
 
@@ -111,7 +116,11 @@ class StructureSeeder extends Seeder
                         })
                         , 'structureCoordinators'
                     )
-                    ->create(['position_id'=>2]);  
+                    ->create([
+                        'position_id'=>2,
+                        'section'=>$section,
+                        'section_type' => $section_type
+                    ]);  
 
                     array_push($arrayLocalDistricts, $localDistrict);
                 }
@@ -136,7 +145,11 @@ class StructureSeeder extends Seeder
                         })
                         , 'structureCoordinators'
                     )
-                    ->create(['position_id'=>3]);  
+                    ->create([
+                        'position_id'=>3,
+                        'section'=>$section,
+                        'section_type' => $section_type
+                    ]);  
 
                     array_push($arrayMunicipalityKeys, $municipalityKey);
                 }
@@ -163,16 +176,26 @@ class StructureSeeder extends Seeder
                         })
                         , 'structureCoordinators'
                     )
-                    ->create(['position_id'=>4]);  
+                    ->create([
+                        'position_id'=>4,
+                        'section'=>$section,
+                        'section_type' => $section_type
+                    ]);  
 
                     array_push($arrayZoneKeys, $zoneKey);
                 }
 
                 if(!in_array($section, $arraySections)){
 
-                    $promoterNumber= mt_rand(1, 5);
-
-                    $promotersGoal= ceil($goal/$promoterNumber);
+                    /*$promoterNumber= mt_rand(1, 2);
+                    $promotersGoal= ceil($goal/$promoterNumber);*/
+                    if($goal<3){
+                        $promoterNumber= 1;
+                        $promotersGoal= $goal;
+                    }else{
+                        $promoterNumber= mt_rand(1, 2);
+                        $promotersGoal= ceil($goal/$promoterNumber);
+                    }
 
                     Member::factory( $promoterNumber )
                     ->has(
@@ -195,7 +218,11 @@ class StructureSeeder extends Seeder
                         })
                         , 'structureCoordinators'
                     )
-                    ->create(['position_id'=>5]);  
+                    ->create([
+                        'position_id'=>5,
+                        'section'=>$section,
+                        'section_type' => $section_type
+                    ]);  
 
                     $promoters= StructureCoordinator::where('position_id', 5)->where('section', $structure['section'])->get();
                     $promotedsNumber= mt_rand(1,$promotersGoal);   
@@ -213,7 +240,11 @@ class StructureSeeder extends Seeder
                             })
                             , 'structurePromoteds'
                         )
-                        ->create(['position_id'=>6]);
+                        ->create([
+                            'position_id'=>6,
+                            'section'=>$section,
+                            'section_type' => $section_type
+                        ]);
                     }                    
 
                     array_push($arraySections, $section);

@@ -24,7 +24,26 @@ class PromotersController extends Controller
 
     public function promoteds($id)
     {
-        return StructurePromoted::with('member')->with('structure')->where('structure_coordinator_id', $id)->get();
+        return StructurePromoted::with('member')->with('structure')->where('structure_coordinator_id', $id)->orderBy('id', 'desc')->get();
+    }
+
+    public function goals($id)
+    {
+        $promoter= StructureCoordinator::with('member')->find($id);
+        $promoteds= StructurePromoted::with('member')->with('structure')->where('structure_coordinator_id', $id)->orderBy('id', 'desc')->count();
+
+        return [
+            'structure_coordinator_id'=> $promoter->id,
+            'firstname'=> $promoter->member->firstname,
+            'lastname'=> $promoter->member->lastname,
+            'electoral_key'=> $promoter->member->electoral_key,
+            'section'=> $promoter->section,
+            'goal'=> $promoter->goal,
+            'total_promoteds'=> $promoteds
+
+        ];
+
+        
     }
 
     /**

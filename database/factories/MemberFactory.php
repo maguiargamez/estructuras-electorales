@@ -18,12 +18,28 @@ class MemberFactory extends Factory
      */
     public function definition(): array
     {
-        $curp= $this->faker->regexify('[A-Za-z0-9]{18}');
+        $curp= $this->faker->regexify('[A-Z0-9]{18}');
+        $sex= $this->faker->boolean;
+        ($sex==1) ? $firstname= $this->faker->firstNameMale : $firstname= $this->faker->firstNameFemale;
+        $hasSocialNetworks= $this->faker->boolean;
+
+        $facebook= null;
+        $instagram= null;
+        $twitter= null;
+        $tiktok= null;
+        
+        if($hasSocialNetworks){
+            $facebook= 'www.facebook.com/'.strtolower($firstname);
+            $instagram= 'www.instagram.com/'.strtolower($firstname);
+            $twitter= 'www.twitter.com/'.strtolower($firstname);
+            $tiktok= 'www.tiktok.com/'.strtolower($firstname);
+        }
+
         return [
             'position_id' => 2,
-            'firstname' => $this->faker->firstName,
+            'firstname' => $firstname,
             'lastname' => $this->faker->lastName.' '.$this->faker->lastName,
-            'sex' => $this->faker->boolean,
+            'sex' => $sex,
             'birth_date' => $this->faker->date(),
             //'electoral_key' => $this->ean13(),
             'electoral_key' => $curp,
@@ -41,12 +57,12 @@ class MemberFactory extends Factory
             'activity_id' => Activity::all()->random()->id,
             'mobile_phone' => $this->faker->phoneNumber,
             'house_phone' => $this->faker->phoneNumber,
-            'email' => $this->faker->safeEmail,
-            'has_social_networks' => $this->faker->boolean,
-            'facebook' => null,
-            'instagram' => null,
-            'twitter' => null,
-            'tiktok' => null,
+            'email' => mt_rand(1, 10).$this->faker->safeEmail,
+            'has_social_networks' => $hasSocialNetworks,
+            'facebook' => $facebook,
+            'instagram' => $instagram,
+            'twitter' => $twitter,
+            'tiktok' => $tiktok,
             'is_validated' => $this->faker->boolean,
             'was_supported' => $this->faker->boolean,
 
