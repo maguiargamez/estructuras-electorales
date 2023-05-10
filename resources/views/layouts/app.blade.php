@@ -45,7 +45,7 @@
 					@include('layouts.app.sidebar')
 
 					<!--begin::Main-->
-					<div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+					<div id="kt_app_main" class="app-main flex-column flex-row-fluid">
 						<!--begin::Content wrapper-->
 						<div class="d-flex flex-column flex-column-fluid">
 
@@ -53,19 +53,15 @@
 							{{-- @include('layouts.app.toolbar') --}}
 
 
-							<!--begin::Content-->
-							<div id="kt_app_content" class="app-content flex-column-fluid">
-
-								<!--begin::Content container-->
-								<div id="kt_app_content_container" class="app-container container-fluid">
+		
 									
 
 									{{ $slot }}								
 
-								</div>
+								
 								<!--end::Content container-->
 
-							</div>
+							
 							<!--end::Content-->
 						</div>
 						<!--end::Content wrapper-->
