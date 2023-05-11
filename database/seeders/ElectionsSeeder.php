@@ -22,6 +22,14 @@ class ElectionsSeeder extends Seeder
                 'description' => 'Elección Chiapas 2024',
                 'created_at' => $currentDate,
                 'updated_at' => $currentDate,
+            ],
+            [
+                'election_type_id' => 2,
+                'state_id' => 7,
+                'municipality_id' => 102,
+                'description' => 'Elección Tuxtla 2024',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
             ]
         ]);
     }

@@ -57,7 +57,7 @@ class MemberFactory extends Factory
             'activity_id' => Activity::all()->random()->id,
             'mobile_phone' => $this->faker->phoneNumber,
             'house_phone' => $this->faker->phoneNumber,
-            'email' => mt_rand(1, 10).$this->faker->safeEmail,
+            'email' => mt_rand(1, 1000).$this->faker->safeEmail,
             'has_social_networks' => $hasSocialNetworks,
             'facebook' => $facebook,
             'instagram' => $instagram,
