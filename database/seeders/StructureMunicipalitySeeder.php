@@ -45,7 +45,7 @@ class StructureMunicipalitySeeder extends Seeder
                 $section_type= Str::title(strtolower(trim($data['7'])));
 
                 $arrayStructure= [
-                    'election_id'=>1,
+                    'election_id'=>2,
                     'entity_key' => $entityKey,
                     'entity' => 'Chiapas',
                     'federal_district' => Str::title(strtolower(trim($data['1']))),

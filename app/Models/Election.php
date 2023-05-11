@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Election extends Model
 {
@@ -16,5 +17,10 @@ class Election extends Model
             $query
                 ->where('description', 'like', '%'.$term.'%');
         });
+    }
+
+    public function electionType(): BelongsTo
+    {
+        return $this->belongsTo(ElectionType::class);
     }
 }
