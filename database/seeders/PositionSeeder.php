@@ -57,6 +57,42 @@ class PositionSeeder extends Seeder
                 'created_at' => $currentDate,
                 'updated_at' => $currentDate,
             ],
+            [
+                'election_type_id' => 2,
+                'hierarchy' => 1,
+                'description' => 'Coordinador municipal',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ],
+            [
+                'election_type_id' => 2,
+                'hierarchy' => 2,
+                'description' => 'Coordinador distrital',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ],
+            [
+                'election_type_id' => 2,
+                'hierarchy' => 3,
+                'description' => 'Coordinador de zona',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ],
+            [
+                'election_type_id' => 2,
+                'hierarchy' => 4,
+                'description' => 'Promotor',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ],
+            [
+                'election_type_id' => 2,
+                'hierarchy' => 5,
+                'description' => 'Promovido',
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
+            ]
+
         ]);
     }
 }

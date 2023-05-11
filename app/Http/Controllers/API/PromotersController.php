@@ -95,8 +95,13 @@ class PromotersController extends Controller
 
             if($validateSection!=null){
                 $structure= Structure::where('section', $postMember['section'])->first();
-            }else{
-                return ['El promotor no puede agregar promovidos para esta sección'];
+            }else{                
+                return response()->json([
+                    'code' => 471,
+                    'status' => 'Error',
+                    'message' => 'Error al validar',
+                    'data' => ['El promotor no puede agregar promovidos para esta sección']
+                ], 471);
             }
 
             $member= new Member();

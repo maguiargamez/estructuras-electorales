@@ -33,15 +33,32 @@
                     <div class="text-center">
                         <div class="fs-5x d-flex justify-content-center align-items-start">
                             <span class="lh-sm fw-semibold"> 
-                                <span class="text-info">{{ number_format($electionGoal) }} </span> 
+                                
+                                <span class="text-muted">{{ number_format($promotedNumber) }} </span>/
+                                <span class="text-info">{{ number_format($this->electionGoal) }} </span> 
                                 
                             </span>
                             
                         </div>
                         <span class="text-gray-500 fs-6 d-block fw-bold">META GENERAL</span>
+
+                        <div class="d-flex align-items-center flex-column mt-3">
+                            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+                                <span class="fw-semibold fs-6 text-gray-400">Avance</span>
+                                <span class="fw-bold fs-6">{{ number_format((($promotedNumber*100)/$this->electionGoal),2)  }}%</span>
+                            </div>
+                            <div class="h-40px mx-3 w-100 bg-light mb-3">
+                                <div role="progressbar" style="width: {{ number_format((($promotedNumber*100)/$this->electionGoal),2)  }}%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" class="bg-success rounded h-40px"></div>
+                            </div>
+                        </div>
+                        
                         
                     </div>
                 </div>
+
+                
+
+                
             </div>
         </div>
     </div>

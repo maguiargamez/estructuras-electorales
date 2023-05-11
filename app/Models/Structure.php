@@ -10,8 +10,10 @@ class Structure extends Model
 {
     use HasFactory;
 
-    public function structurePromoteds(): HasMany
+    public function promoteds(): HasMany
     {
         return $this->hasMany(StructurePromoted::class);
     }
+
+
 }
