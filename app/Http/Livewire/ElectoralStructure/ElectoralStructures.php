@@ -79,6 +79,49 @@ class ElectoralStructures extends Component
         }
     }
 
+    private function getStateStructure2($election_id){
+        $structures= Structure::where('election_id', $election_id)
+        ->orderBY('local_district', 'ASC')
+        ->orderBY('municipality_key', 'ASC')
+        ->orderBY('zone_key', 'ASC')
+        ->orderBY('section', 'ASC')
+        ->get(); 
+        $array= [];
+
+        //$this->getArray();
+        $localDistrict= 0;        
+        $localDistrictGoal= null;
+        $localDistrictPromoteds= null;
+        $localDistrictChildrens= null;
+
+        $i=0;
+        foreach($structures as $structure){
+
+            if($structure->local_district!=$localDistrict){
+                $localDistrict= $structure->local_district;
+                
+                if($i!=0){
+                    $this->getArray(
+                        $localDistrict, 
+                        $localDistrictGoal,
+                        $localDistrictPromoteds, 
+                        $localDistrictChildrens
+                    );
+                }
+                
+                $i=0;
+            }
+
+            $localDistrictGoal+= $structure->goal;
+
+            
+            $i++;
+        }
+
+        return $array;
+
+    }
+
     private function getStateStructure($election_id){
         $structures= [];
         $districts= Structure::selectRaw('local_district, SUM(goal) as totalGoal, (select count(*) from structure_promoteds join `structures` as st on st.id= structure_promoteds.structure_id where st.election_id= '.$election_id.' and st.local_district= `structures`.local_district ) as promoteds')->where('election_id', $election_id)->groupBy('local_district')->get();     

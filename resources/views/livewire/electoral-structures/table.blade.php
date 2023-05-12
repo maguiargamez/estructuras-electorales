@@ -20,7 +20,7 @@
                     @php
                         $randomName= Str::random(6);
                     @endphp
-                    <tr id="kt_accordion_3" class="odd border-bottom-0 bg-secondary">
+                    <tr id="kt_accordion_3" class="odd border-bottom-0">
                         <td style="padding-left: 10px">
                             <span class="text-gray-900 text-hover-primary">{{ $tructure["name"] }}</span>
                         </td>
