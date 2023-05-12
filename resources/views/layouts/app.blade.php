@@ -78,10 +78,11 @@
 
         @livewireScripts
 
-		<script>var hostUrl = "{{ asset('metronic/assets/') }}";</script>
+		<script>var hostUrl = "{{ asset('metronic/assets/') }}/";</script>
         <script src="{{ asset('metronic/assets/plugins/global/plugins.bundle.js') }}"></script>
         <script src="{{ asset('metronic/assets/js/scripts.bundle.js') }}"></script>
-        <script src="{{ asset('metronic/assets/js/custom/authentication/sign-in/general.js') }}"></script>
+        <script src="{{ asset('metronic/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+
 
 		@stack('scripts')
                             
