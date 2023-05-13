@@ -88,7 +88,10 @@
             </div>
 
             <div class="card-body pt-2">
-                @include('livewire.electoral-structures.table')
+
+                @include('livewire.electoral-structures.table-state')
+
+
             </div>
 
         </div>

@@ -79,6 +79,30 @@ class ElectoralStructures extends Component
         }
     }
 
+    private function getStateStructure($election_id){
+
+        $districts= Structure::selectRaw('local_district, SUM(goal) as totalGoal, (select count(*) from structure_promoteds join `structures` as st on st.id= structure_promoteds.structure_id where st.election_id= '.$election_id.' and st.local_district= `structures`.local_district ) as promoteds')->where('election_id', $election_id)->groupBy('local_district')->get(); 
+
+        $array= [];
+
+        foreach($districts as $district){
+            $municipalities= Structure::selectRaw('municipality_key, municipality as name, SUM(goal) as totalGoal, (select count(*) from structure_promoteds join `structures` as st on st.id= structure_promoteds.structure_id where st.election_id= '.$election_id.' and st.local_district='.$district->local_district.' and st.municipality_key= `structures`.municipality_key ) as promoteds')->where('election_id', $election_id)->where('local_district', $district->local_district)->groupBy('municipality_key')->get();  
+            
+            array_push(
+                $array, 
+                $this->getArray(
+                    'Distrito '.$district->local_district,
+                    $district->totalGoal,
+                    $district->promoteds,
+                    $municipalities
+                )
+            );
+        }
+
+        return $array;
+    }
+
+
     private function getStateStructure2($election_id){
         $structures= Structure::where('election_id', $election_id)
         ->orderBY('local_district', 'ASC')
@@ -122,7 +146,7 @@ class ElectoralStructures extends Component
 
     }
 
-    private function getStateStructure($election_id){
+    private function getStateStructureTest($election_id){
         $structures= [];
         $districts= Structure::selectRaw('local_district, SUM(goal) as totalGoal, (select count(*) from structure_promoteds join `structures` as st on st.id= structure_promoteds.structure_id where st.election_id= '.$election_id.' and st.local_district= `structures`.local_district ) as promoteds')->where('election_id', $election_id)->groupBy('local_district')->get();     
             
