@@ -3,15 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\PromotedStoreRequest;
-use App\Models\Member;
 use App\Models\SchoolGrade;
-use App\Models\Structure;
-use App\Models\StructureCoordinator;
-use App\Models\StructurePromoted;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SchoolGradesController extends Controller
 {
