@@ -23,7 +23,7 @@ class ActivitiesController extends Controller
         
     }
 
-    public function activities($id)
+    public function activities()
     {
         return Activity::orderBy('id', 'desc')->get();
     }    

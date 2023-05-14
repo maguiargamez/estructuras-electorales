@@ -23,7 +23,7 @@ class SchoolgradesController extends Controller
         
     }
 
-    public function schoolGrades($id)
+    public function schoolGrades()
     {
         return SchoolGrade::orderBy('id', 'desc')->get();
     }
