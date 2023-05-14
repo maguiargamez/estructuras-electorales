@@ -41,8 +41,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('promoters/promoteds/delete/{promoted_id}', [PromotersController::class, 'deletePromoted']);
     Route::get('promoters/{id}/goals', [PromotersController::class, 'goals']);
 
-    Route::get('promoters/school-grades', [SchoolgradesController::class, 'schoolGrades']);
-    Route::get('promoters/activities', [ActivitiesController::class, 'activities']);
+    Route::get('school-grades', [SchoolgradesController::class, 'schoolGrades']);
+    Route::get('activities', [ActivitiesController::class, 'activities']);
 
     /*Route::group(['prefix'=>'my-account','as'=>'my-account.'], function(){
         Route::post('profile', [SanctumAuthController::class, 'profile']);
