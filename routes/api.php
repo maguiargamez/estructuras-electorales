@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\ActivitiesController;
+use App\Http\Controllers\API\SchoolGradesController;
 use App\Http\Controllers\API\PromotersController;
 use App\Http\Controllers\API\SanctumAuthController;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('promoters/promoteds/delete/{promoted_id}', [PromotersController::class, 'deletePromoted']);
     Route::get('promoters/{id}/goals', [PromotersController::class, 'goals']);
 
-    Route::get('school-grades', [SchoolgradesController::class, 'schoolGrades']);
+    Route::get('school-grades', [SchoolGradesController::class, 'schoolGrades']);
     Route::get('activities', [ActivitiesController::class, 'activities']);
 
     /*Route::group(['prefix'=>'my-account','as'=>'my-account.'], function(){
