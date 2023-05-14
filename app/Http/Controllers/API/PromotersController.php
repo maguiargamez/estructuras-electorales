@@ -147,7 +147,13 @@ class PromotersController extends Controller
 
             DB::commit();
 
-            return StructurePromoted::with('member')->with('structure')->find($promoted->id);
+            //return StructurePromoted::with('member')->with('structure')->find($promoted->id);
+            return response()->json([
+                'code' => 200,
+                'status' => 'Success',
+                'message' => 'Los datos se han registrado correctamente',
+                'data' => [StructurePromoted::with('member')->with('structure')->find($promoted->id)]
+            ], 200);
 
         }catch (\Exception $e) {
             
@@ -200,7 +206,12 @@ class PromotersController extends Controller
             if($validateSection!=null){
                 $structure= Structure::where('section', $postMember['section'])->first();
             }else{
-                return ['El promotor no puede agregar promovidos para esta sección'];
+                return response()->json([
+                    'code' => 471,
+                    'status' => 'Error',
+                    'message' => 'Error al validar',
+                    'data' => ['El promotor no puede agregar promovidos para esta sección']
+                ], 471);
             }
 
             $promoted = StructurePromoted::find($promoted_id);
@@ -215,7 +226,13 @@ class PromotersController extends Controller
 
             DB::commit();
 
-            return StructurePromoted::with('member')->with('structure')->find($promoted->id);
+            //return StructurePromoted::with('member')->with('structure')->find($promoted->id);
+            return response()->json([
+                'code' => 200,
+                'status' => 'Success',
+                'message' => 'Los datos se han actualizado correctamente',
+                'data' => [StructurePromoted::with('member')->with('structure')->find($promoted->id)]
+            ], 200);
 
         }catch (\Exception $e) {
             

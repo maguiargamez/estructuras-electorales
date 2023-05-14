@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\Dashboard\DashboardHome;
 use App\Http\Livewire\Election\Elections;
+use App\Http\Livewire\ElectoralStructure\ElectoralSectionsStructures;
 use App\Http\Livewire\ElectoralStructure\ElectoralStructures;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,6 @@ Route::get('/home', DashboardHome::class)->name('dashboard.home');
 
 
 Route::get('/estructura', ElectoralStructures::class)->name('estructura.index');
+Route::get('/estructura/{structureId}/secciones', ElectoralSectionsStructures::class)->name('estructura.secciones');
+
 Route::get('/elecciones', Elections::class)->name('elecicones.index');
