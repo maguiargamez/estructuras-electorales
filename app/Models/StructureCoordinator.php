@@ -13,9 +13,23 @@ class StructureCoordinator extends Model
 
     protected $guarded = [];
 
+    public function scopeSearch($query, $term)
+    {
+        $term = "%$term%";
+        $query->where(function ($query) use ($term) {
+            $query
+                ->where('id', 'like', '%'.$term.'%');
+        });
+    }
+
     public function member(): BelongsTo
     {
         return $this->belongsTo(Member::class);
+    }
+
+    public function position(): BelongsTo
+    {
+        return $this->belongsTo(Position::class);
     }
 
     static public function promotersList()

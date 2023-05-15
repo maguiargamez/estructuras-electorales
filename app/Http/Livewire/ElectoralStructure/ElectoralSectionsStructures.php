@@ -7,6 +7,9 @@ use Livewire\WithPagination;
 use App\Http\Traits\WithSorting;
 use App\Models\Election;
 use App\Models\Structure;
+use App\Http\Classes\Helper;
+use App\Models\Member;
+use App\Models\StructureCoordinator;
 
 class ElectoralSectionsStructures extends Component
 {
@@ -20,6 +23,8 @@ class ElectoralSectionsStructures extends Component
     public $percentageCompletion;
     public $totalPromoteds;
     public $totalGoal;
+    public $electionTypeId;
+    public $cordinators=[];
 
 
     public $breadcrumb = [
@@ -45,9 +50,35 @@ class ElectoralSectionsStructures extends Component
 
         $structures= Structure::selectRaw('id, municipality_key, municipality as name, SUM(goal) as totalGoal, (select count(*) from structure_promoteds join `structures` as st on st.id= structure_promoteds.structure_id where st.election_id= '.$this->structure->election_id.' and st.local_district='.$this->structure->local_district.' and st.municipality_key= `structures`.municipality_key ) as promoteds')->where('election_id', $this->structure->election_id)->where('local_district', $this->structure->local_district)->where('municipality_key', $this->structure->municipality_key)->groupBy('municipality_key')->first();
 
+
+
+        $election= Election::find($this->structure->election_id);
+        $this->electionTypeId= $election->election_type_id;
         $this->totalPromoteds= $structures->promoteds;
         $this->totalGoal= $structures->totalGoal;
         $this->percentageCompletion= number_format((($structures->promoteds*100)/$structures->totalGoal),2);
+
+        if($this->electionTypeId==1){
+            $positionId= 4;
+        }else{
+            $positionId= 9;
+        }
+
+        $this->cordinators= StructureCoordinator::selectRaw('*')
+        ->with('member')
+        ->with('position')
+        ->where('election_id', $this->structure->election_id)
+        ->where(function($query) {
+            $query->where('local_district', $this->structure->local_district)
+            ->orWhereNULL('local_district');
+        }) 
+        ->where(function($query) {
+            $query->where('municipality_key', $this->structure->municipality_key)
+            ->orWhereNULL('municipality_key');
+        })
+        ->where('position_id', '<', $positionId)
+        ->get();
+
     }
 
     public function render()
@@ -69,8 +100,7 @@ class ElectoralSectionsStructures extends Component
 
     public function getItemsQueryProperty()
     {
-        $items= [];
-        $election= Election::find($this->structure->election_id);
+        $items= [];    
         
 
             $zones = Structure::selectRaw('

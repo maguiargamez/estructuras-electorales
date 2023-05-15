@@ -1,14 +1,10 @@
 <div>
     <div  class="app-toolbar py-3 py-lg-6">
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
-
             <x-breadcrumb 
             :breadcrumb="$breadcrumb"
             :title="$title"
-            ></x-breadcrumb>      
-
-
-
+            ></x-breadcrumb>
         </div>
     </div>
 
@@ -21,8 +17,25 @@
                 <div class="d-flex flex-stack mb-6">
                     <!--begin::Title-->
                     <div class="flex-shrink-0 me-5">
-                        <span class="text-gray-400 fs-7 fw-bold me-2 d-block lh-1 pb-1">Distrito {{ $structure->local_district }}</span>
-                        <span class="text-gray-800 fs-1 fw-bold">{{ $structure->municipality }}</span>
+
+
+                        <span class="text-gray-400 fs-7 fw-bold me-2 d-block lh-1 pb-1">
+                            
+                            @if($electionTypeId==1)                            
+                                Distrito {{ \App\Http\Classes\Helper::toRomanNumeral($structure->local_district) }}
+                            @else
+                                {{ $structure->municipality }}
+                            @endif
+                            
+                        </span>
+                        <span class="text-gray-800 fs-1 fw-bold">                            
+                            @if($electionTypeId==1)
+                                {{ $structure->municipality }}                                
+                            @else
+                                Distrito {{ \App\Http\Classes\Helper::toRomanNumeral($structure->local_district) }}
+                            @endif                            
+                        </span>
+
                     </div>
 
                     <div class="d-flex align-items-center flex-column mt-3 w-200px w-sm-300px">
@@ -42,21 +55,18 @@
                 <!--end::Heading-->
                 <!--begin::Items-->
                 <div class="d-flex align-items-center flex-wrap d-grid gap-2">
-                    <!--begin::Item-->
-                    <div class="d-flex align-items-center me-5 me-xl-13">
-                        <div class="m-0">
-                            <span class="fw-semibold text-gray-400 d-block fs-8">Coordinador distrital</span>
-                            <a href="../../demo1/dist/pages/user-profile/overview.html" class="fw-bold text-gray-800 text-hover-primary fs-7">Robert Fox</a>
-                        </div>
-                    </div>
 
-                    <div class="d-flex align-items-center">
-
-                        <div class="m-0">
-                            <span class="fw-semibold text-gray-400 d-block fs-8">Coordinador municipal</span>
-                            <span class="fw-bold text-gray-800 fs-7">$64.800</span>
+                    @foreach ($cordinators as $cordinator)
+                        <div class="d-flex align-items-center me-5 me-xl-13">
+                            <div class="m-0">
+                                <span class="fw-semibold text-gray-400 d-block fs-8">{{ $cordinator->position->description }}</span>
+                                <a href="../../demo1/dist/pages/user-profile/overview.html" class="fw-bold text-gray-800 text-hover-primary fs-7">{{ $cordinator->member->firstname.' '.$cordinator->member->lastname }}</a>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
+                   
+
+
                 </div>
             </div>
         </div>
@@ -118,7 +128,7 @@
                 
                                 
                                     <td style="padding-left: 10px">
-                                        <a href="#" class="text-gray-800 text-hover-primary">{{ $item["name"] }}</a>
+                                        <a href="#" class="text-gray-800 text-hover-primary">Sección {{ $item["name"] }}</a>
                                     </td>
                                     <td align="right">
                 
