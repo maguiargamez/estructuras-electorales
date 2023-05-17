@@ -10,7 +10,7 @@ use App\Models\StructureCoordinator;
 class CoordinatorsStructures extends Component
 {
     use WithPagination, WithSorting;
-    public $title = 'Estructura electoral';
+    public $title = 'Coordinadores';
     public $paginate = 10;    
     public $search = '';
 
@@ -26,6 +26,7 @@ class CoordinatorsStructures extends Component
     public function render()
     {
         return view('livewire.coordinators-structure.index',[
+            'dashboards'=> $this->dashboards,
             'items'=> $this->items
         ]);
     }
@@ -68,6 +69,20 @@ class CoordinatorsStructures extends Component
     }
 
     public function getItemsProperty()
+    {
+        return ($this->itemsQuery->paginate($this->paginate));
+    }
+
+    public function getDashboardsQueryProperty()
+    {
+        return StructureCoordinator::query()
+            ->with('member')
+            ->with('position')
+            ->search(trim($this->search))
+            ->orderBy($this->sortBy, $this->sortDirection);
+    }
+
+    public function getDashboardsProperty()
     {
         return ($this->itemsQuery->paginate($this->paginate));
     }
