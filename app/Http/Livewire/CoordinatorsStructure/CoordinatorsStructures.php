@@ -10,9 +10,11 @@ use App\Models\StructureCoordinator;
 class CoordinatorsStructures extends Component
 {
     use WithPagination, WithSorting;
+    protected $paginationTheme = 'bootstrap';
     public $title = 'Coordinadores';
     public $paginate = 10;    
     public $search = '';
+    public $electionId= 1;
 
     public $breadcrumb = [
         "Inicio" => null
@@ -64,6 +66,8 @@ class CoordinatorsStructures extends Component
         return StructureCoordinator::query()
             ->with('member')
             ->with('position')
+            ->where('election_id', $this->electionId)
+            ->whereIn('position_id', [1,2,3,4])
             ->search(trim($this->search))
             ->orderBy($this->sortBy, $this->sortDirection);
     }
@@ -78,6 +82,8 @@ class CoordinatorsStructures extends Component
         return StructureCoordinator::query()
             ->with('member')
             ->with('position')
+            ->where('election_id', $this->electionId)
+            ->whereIn('position_id', [1,2,3,4])
             ->search(trim($this->search))
             ->orderBy($this->sortBy, $this->sortDirection);
     }

@@ -39,4 +39,12 @@ class StructureCoordinator extends Model
         ->where('structure_coordinators.position_id', 5)->orderBy('structure_coordinators.id')->orderBy('id', 'desc')
         ;
     }
+
+    static public function dashboardTotals($electionId){
+        return  StructureCoordinator::select()
+        ->with('member')
+        ->with('position')
+        ->where('election_id', $electionId)
+        ->whereIn('position_id', [1,2,3,4]);
+    }
 }

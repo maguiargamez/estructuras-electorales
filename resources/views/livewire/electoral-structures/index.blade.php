@@ -9,13 +9,13 @@
             ></x-breadcrumb>
         
 
-            <div class="d-flex align-items-center gap-2 gap-lg-3 form">
+            <!--<div class="d-flex align-items-center gap-2 gap-lg-3 form">
                 <x-select 
                 wire:model="election_id" 
                 id="election_id"
                 :options="$elections"
                 ></x-select>
-            </div>
+            </div>-->
 
         </div>
     </div>

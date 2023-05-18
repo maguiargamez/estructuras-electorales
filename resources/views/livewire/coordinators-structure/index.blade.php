@@ -353,9 +353,12 @@
                     </table>
                 
                 </div>
-                
-                
+                <div class="d-flex justify-content-end py-0">
+                    {{$items->links()}}
                 </div>
+                
+                
+            </div>
                 
                 
                 
