@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use DB;
 class StructureCoordinator extends Model
 {
     use HasFactory, SoftDeletes;
@@ -41,10 +41,25 @@ class StructureCoordinator extends Model
     }
 
     static public function dashboardTotals($electionId){
-        return  StructureCoordinator::select()
-        ->with('member')
-        ->with('position')
+
+
+        return  StructureCoordinator::select(
+            'positions.description as coordinator',
+            DB::raw('count(*) as totalCoordinators'),
+            DB::raw('
+            (CASE
+                WHEN position_id = 1 THEN (select COUNT(DISTINCT(entity_key)) from structures where election_id=1 )
+                WHEN position_id = 2 THEN (select COUNT(DISTINCT(local_district)) from structures where election_id=1 )
+                WHEN position_id = 3 THEN (select COUNT(DISTINCT(municipality_key)) from structures where election_id=1 )
+                WHEN position_id = 4 THEN (select COUNT(DISTINCT(zone_key)) from structures where election_id=1 )
+                ELSE 0
+            END) as totals
+            '),
+        )
+        ->join('positions', 'positions.id', '=', 'structure_coordinators.position_id')
         ->where('election_id', $electionId)
-        ->whereIn('position_id', [1,2,3,4]);
+        ->whereIn('position_id', [1,2,3,4])
+        ->groupBy('position_id')
+        ;
     }
 }

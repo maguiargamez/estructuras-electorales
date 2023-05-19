@@ -79,18 +79,12 @@ class CoordinatorsStructures extends Component
 
     public function getDashboardsQueryProperty()
     {
-        return StructureCoordinator::query()
-            ->with('member')
-            ->with('position')
-            ->where('election_id', $this->electionId)
-            ->whereIn('position_id', [1,2,3,4])
-            ->search(trim($this->search))
-            ->orderBy($this->sortBy, $this->sortDirection);
+        return StructureCoordinator::dashboardTotals($this->electionId);
     }
 
     public function getDashboardsProperty()
     {
-        return ($this->itemsQuery->paginate($this->paginate));
+        return ($this->dashboardsQuery->get());
     }
 
 
