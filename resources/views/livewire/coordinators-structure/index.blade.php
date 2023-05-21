@@ -30,9 +30,7 @@
                                     <div class="flex-grow-1">
                                        
                                         <span class="fw-bold text-gray-800 fs-7">{{ $dashboard->coordinator }} :</span>
-                                        
-                                    
-                                    
+                                                                                                               
                                         {{ $dashboard->totalCoordinators }} de 
                                         <span class="text-info text-hover-primary">
                                             {{ $dashboard->totals }}
@@ -43,9 +41,9 @@
                                 </div>
                                 <div class="d-flex align-items-center w-100 mw-125px">
                                     <div class="progress h-6px w-100 me-2 bg-light-success">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ number_format((($dashboard->totals*100)/$dashboard->totalCoordinators),2)  }}%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <span class="text-gray-400 fw-semibold">65%</span>
+                                    <span class="text-gray-400 fw-semibold">{{ number_format((($dashboard->totals*100)/$dashboard->totalCoordinators),2)  }}%</span>
                                 </div>
                             </div>  
                             <div class="separator separator-dashed my-3"></div>       
@@ -85,9 +83,9 @@
                                 </div>
                                 <div class="d-flex align-items-center w-100 mw-125px">
                                     <div class="progress h-6px w-100 me-2 bg-light-success">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ number_format((($dashboard->totals*100)/$dashboard->totalCoordinators),2)  }}%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <span class="text-gray-400 fw-semibold">65%</span>
+                                    <span class="text-gray-400 fw-semibold">{{ number_format((($dashboard->totals*100)/$dashboard->totalCoordinators),2)  }}%</span>
                                 </div>
                             </div>  
                             <div class="separator separator-dashed my-3"></div>       
@@ -143,13 +141,16 @@
                         <thead>
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">#</th>
+                                <th class="min-w-10px sorting_disabled" rowspan="1" colspan="1">#</th>
                                 <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">NOMBRE</th>
-                                <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">ESTADO</th>
-                                <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">DISTRITO</th>
+                                <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">SECCION</th>
                                 <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">MUNICIPIO</th>
-                                <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">SECCIÓN</th>
-                                <th class="text-end min-w-50px sorting_disabled" rowspan="1" colspan="1" style="width: 91.25px;">META</th>
+                                <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">DISTRITO</th>
+                                <!--<th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">AVANCE</th>
+                                <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">%AVANCE</th>
+                                <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">FALTANTE</th>-->
+                                <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">TIPO COORDINADOR</th>
+
                                 <th class="text-end sorting_disabled" rowspan="1" colspan="1" style="width: 25.6667px;"></th>
                             </tr>
                             <!--end::Table row-->
@@ -165,29 +166,25 @@
                                             {{ $item->member->firstname.' '.$item->member->lastname }}
                                     </td>
                                     <td style="padding-left: 10px">                                        
-                                        {{ $item->entity }}
-                                    </td>
-                                    <td style="padding-left: 10px">                                        
-                                        Distrito {{ $item->local_district }}
+                                        {{ $item->section }}
                                     </td>
                                     <td style="padding-left: 10px">                                        
                                         {{ $item->municipality }}
                                     </td>
                                     <td style="padding-left: 10px">                                        
-                                        {{ $item->seccion }}
+                                        Distrito {{ $item->local_district }}
+                                    </td>
+                                    <!--<td style="padding-left: 10px">                                        
+                                        {{ $item->goal2 }}
+                                    </td>
+
+                                    <td>0</td>
+                                    <td>0</td>-->
+                                    <td>
+                                        {{ $item->position->description  }}
                                     </td>
 
 
-                                    <td align="right">
-                
-                                        <span class="@if($item["promoteds"] > $item["goal"]) text-success @else text-muted @endif text-hover-primary">
-                                            {{ $item["promoteds"] }}
-                                        </span> / 
-                                        <span class="text-info text-hover-primary">
-                                            {{ $item["goal"] }}
-                                        </span>
-                
-                                    </td>
                                     <td class="text-end" style="padding-right: 10px">
                                     </td>
                 

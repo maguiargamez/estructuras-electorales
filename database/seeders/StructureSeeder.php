@@ -65,6 +65,7 @@ class StructureSeeder extends Seeder
                 $structure= Structure::create($arrayStructure);
                 $structure_id= $structure->id;
 
+                /*
                 if(!in_array($entityKey, $arrayEntityKeys)){
                     
                     $array= [
@@ -97,7 +98,9 @@ class StructureSeeder extends Seeder
                     array_push($arrayEntityKeys, $entityKey);
 
                 }
+                */
 
+                /*
                 if(!in_array($localDistrict, $arrayLocalDistricts)){
 
                     Member::factory()
@@ -124,7 +127,9 @@ class StructureSeeder extends Seeder
 
                     array_push($arrayLocalDistricts, $localDistrict);
                 }
+                */
 
+                /*
                 if(!in_array($municipalityKey, $arrayMunicipalityKeys)){
 
                     Member::factory()
@@ -153,7 +158,9 @@ class StructureSeeder extends Seeder
 
                     array_push($arrayMunicipalityKeys, $municipalityKey);
                 }
+                */
 
+                /*
                 if(!in_array($zoneKey, $arrayZoneKeys) && $zoneKey!=null){
 
                     Member::factory()
@@ -184,11 +191,11 @@ class StructureSeeder extends Seeder
 
                     array_push($arrayZoneKeys, $zoneKey);
                 }
-
+                */
+                /*
                 if(!in_array($section, $arraySections)){
 
-                    /*$promoterNumber= mt_rand(1, 2);
-                    $promotersGoal= ceil($goal/$promoterNumber);*/
+
                     if($goal<3){
                         $promoterNumber= 1;
                         $promotersGoal= $goal;
@@ -249,7 +256,8 @@ class StructureSeeder extends Seeder
 
                     array_push($arraySections, $section);
                 }
-
+                */
+                
 
                              
             }

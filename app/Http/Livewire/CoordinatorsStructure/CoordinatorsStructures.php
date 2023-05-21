@@ -63,11 +63,7 @@ class CoordinatorsStructures extends Component
 
     public function getItemsQueryProperty()
     {
-        return StructureCoordinator::query()
-            ->with('member')
-            ->with('position')
-            ->where('election_id', $this->electionId)
-            ->whereIn('position_id', [1,2,3,4])
+        return StructureCoordinator::list($this->electionId)
             ->search(trim($this->search))
             ->orderBy($this->sortBy, $this->sortDirection);
     }
