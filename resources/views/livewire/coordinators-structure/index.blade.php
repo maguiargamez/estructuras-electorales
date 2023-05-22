@@ -5,7 +5,13 @@
             :breadcrumb="$breadcrumb"
             :title="$title"
             ></x-breadcrumb>
+
+            <a href="{{ route('coordinadores.create') }}" type="button" class="btn btn-sm btn-primary">
+                <i class="fa-solid fa-user-tie"></i>   
+                Crear coordinador
+            </a>
         </div>
+
     </div>
 
     <div id="kt_app_content_container" class="app-container">

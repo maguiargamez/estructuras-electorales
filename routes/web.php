@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\CoordinatorsStructure\CoordinatorForm;
 use App\Http\Livewire\CoordinatorsStructure\CoordinatorsStructures;
 use App\Http\Livewire\Dashboard\DashboardHome;
 use App\Http\Livewire\Election\Elections;
@@ -34,7 +35,11 @@ Route::get('/home', DashboardHome::class)->name('dashboard.home');
 Route::get('/estructura', ElectoralStructures::class)->name('estructura.index');
 Route::get('/estructura/{structureId}/secciones', ElectoralSectionsStructures::class)->name('estructura.secciones');
 
+//Coordinadores
 Route::get('/coordinadores', CoordinatorsStructures::class)->name('coordinadores.index');
+Route::get('/coordinadores/crear', CoordinatorForm::class)->name('coordinadores.create');
+Route::get('/coordinadores/{tree}/editar', CoordinatorForm::class)->name('coordinadores.edit');
+
 Route::get('/promotores', PromotersStructures::class)->name('promotores.index');
 Route::get('/promovidos', PromotedsStructures::class)->name('promovidos.index');
 
