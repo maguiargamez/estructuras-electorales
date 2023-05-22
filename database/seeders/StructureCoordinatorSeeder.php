@@ -77,8 +77,10 @@ class StructureCoordinatorSeeder extends Seeder
                 }
 
                 $districtCoordinators= StructureCoordinator::where('election_id', $electionId)->where('position_id',2)->get();
+
                 foreach($districtCoordinators as $districtCoordinator){
-                    $municipalities= Structure::where('entity_key', $state->entity_key)->where('election_id', $electionId)->where('local_district', $districtCoordinator->local_district)->groupBy('municipality_key')->groupBy('local_district')->get();
+                    
+                    $municipalities= Structure::where('entity_key', $state->entity_key)->where('election_id', $electionId)->where('local_district', $districtCoordinator->local_district)->groupBy('municipality_key')->groupBy('local_districts')->get();
 
                     foreach($municipalities as $municipality){
                         Member::factory()
@@ -105,6 +107,8 @@ class StructureCoordinatorSeeder extends Seeder
                             'section'=>$municipality->section,
                             'section_type' => $municipality->section_type
                         ]);
+
+                        
                     }
 
                 }

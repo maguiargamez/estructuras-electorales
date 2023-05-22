@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        Role::create(['name' => 'admin']);
+        /*Role::create(['name' => 'admin']);
         Role::create(['name' => 'promoter']);
 
         $admin= \App\Models\User::factory()->create([
@@ -36,16 +36,20 @@ class DatabaseSeeder extends Seeder
         $this->call(SchoolGradeSeeder::class);
         $this->call(SectionTypeSeeder::class);
         $this->call(SchoolGradeSeeder::class);
-        $this->call(StructureSeeder::class);
+        $this->call(StructureSeeder::class);*/
 
-        $this->call(StructureCoordinatorSeeder::class);
+        //$this->call(CreateStateCoordinatorsSeeder::class);
+        //$this->call(CreateDistrictCoordinatorsSeeder::class);
+        //$this->call(CreateMunicipalityCoordinatorsSeeder::class);
+        //$this->call(CreateSectionPromotersSeeder::class);
+        $this->call(UpdateGoalsSeeder::class);
 
-        //$this->call(UpdateGoalsSeeder::class);
-        //$this->call(StructureMunicipalitySeeder::class);        
         //$this->call(UserPromoterSeeder::class);
        // $this->call(UserPromoterMunicipalitySeeder::class);
-       //$this->call(UpdateFatherCoordinatorsSeeder::class);
-       //$this->call(UpdateGoalsSeeder::class);
+
+
+        //$this->call(StructureCoordinatorSeeder::class);
+        //$this->call(UpdateGoalsSeeder::class);
 
 
     }
