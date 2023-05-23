@@ -36,6 +36,7 @@ Auth::routes();
 
 
 
+
 Route::get('/estructura', ElectoralStructures::class)->name('estructura.index');
 Route::get('/estructura/{structureId}/secciones', ElectoralSectionsStructures::class)->name('estructura.secciones');
 
