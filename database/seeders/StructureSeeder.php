@@ -34,7 +34,7 @@ class StructureSeeder extends Seeder
                 $time = strtotime(trim($data['1']));
                 $newformat = date('Y-m-d',$time);
 
-                $goal = mt_rand(1,15);
+                $goal = mt_rand(1,8);
                 //$finalGoal= $finalGoal-$goal;
                 $entityKey= Str::title(strtolower(trim($data['0'])));
                 $entity= 'Chiapas';

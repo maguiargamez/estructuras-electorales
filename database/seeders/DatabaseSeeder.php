@@ -41,8 +41,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CreateStateCoordinatorsSeeder::class);
         $this->call(CreateDistrictCoordinatorsSeeder::class);
-        $this->call(CreateMunicipalityCoordinatorsSeeder::class);
+        $this->call(CreateMunicipalityCoordinatorsSeeder::class);        
         $this->call(CreateSectionPromotersSeeder::class);
+
         $this->call(UpdateGoalsSeeder::class);
 
         $this->call(PromotedSeeder::class);

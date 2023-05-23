@@ -20,18 +20,38 @@ class CreateSectionPromotersSeeder extends Seeder
 
         foreach($municipalityCoordinators as $municipalityCoordinator){
 
-            $sections= Structure::where('entity_key', $municipalityCoordinator->entity_key)->where('election_id', $electionId)->where('local_district', $municipalityCoordinator->local_district)->get();
+            $sections= Structure::where('election_id', $electionId)->where('entity_key', $municipalityCoordinator->entity_key)->where('local_district', $municipalityCoordinator->local_district)->where('municipality_key', $municipalityCoordinator->municipality_key)->get();
 
             foreach($sections as $section){
+                
                 $goal = $section->goal;
 
-                if($goal<3){
+                if($goal%2==0){
+
+
+                }else{
+
+                }
+                
+                if($goal<4)
+                {
                     $promoterNumber= 1;
                     $promotersGoal= $goal;
-                }else{
-                    $promoterNumber= mt_rand(1, 2);
-                    $promotersGoal= ceil($goal/$promoterNumber);
                 }
+                else
+                {
+                    
+                    if($goal%2==0){
+                        $promoterNumber= 2;
+                        $promotersGoal= $goal/2;
+                    }else{
+                        $promoterNumber= 1;
+                        $promotersGoal= $goal;
+                    }                   
+                    
+                }
+
+
     
                 Member::factory( $promoterNumber )
                 ->has(
