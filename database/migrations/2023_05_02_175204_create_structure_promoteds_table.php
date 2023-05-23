@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('structure_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();;
             $table->foreignId('structure_coordinator_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();;      
-            $table->foreignId('member_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();;      
-            $table->boolean('confirmation')->default(false);
+            $table->foreignId('member_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();   
+            $table->foreignId('promoted_type_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
             $table->softDeletes();
         });

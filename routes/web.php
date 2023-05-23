@@ -40,6 +40,15 @@ Route::get('/coordinadores', CoordinatorsStructures::class)->name('coordinadores
 Route::get('/coordinadores/crear', CoordinatorForm::class)->name('coordinadores.create');
 Route::get('/coordinadores/{tree}/editar', CoordinatorForm::class)->name('coordinadores.edit');
 
+//Promovidos
+Route::get('/promovidos', PromotersStructures::class)->name('promovidos.index');
+
+/*Route::prefix('promovidos')->group(function () {
+    Route::get('/arboles', Trees::class)->name('inventario.arboles.index');
+    Route::get('/arboles/crear', TreeForm::class)->name('inventario.arboles.create');
+    Route::get('/arboles/{tree}/editar', TreeForm::class)->name('inventario.arboles.edit');
+});*/
+
 Route::get('/promotores', PromotersStructures::class)->name('promotores.index');
 Route::get('/promovidos', PromotedsStructures::class)->name('promovidos.index');
 
