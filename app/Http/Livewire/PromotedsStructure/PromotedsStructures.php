@@ -33,7 +33,8 @@ class PromotedsStructures extends Component
     public function render()
     {
         return view('livewire.promoteds-structure.index',[            
-            'items'=> $this->items
+            'items'=> $this->items,
+            'dashboards' => StructurePromoted::promotedTypeTotals($this->electionId)->get()
         ]);
     }
 
