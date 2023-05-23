@@ -115,68 +115,45 @@
             </div>
 
             <div class="col-sm-12 col-xl-6 mb-xl-10">
-                <div class="card">
-                    <div class="card-header mt-6">
-                        <div class="card-title flex-column">
-                            <h3 class="fs-3 text-gray-800 w-bolder mb-1">SEXO</h3>
-                            <div class="fs-6 fw-bold text-gray-400">Estadisticas por sexo de los simpatizantes</div>
-                        </div>                
+                <div class="card card-flush h-xl-100">
+                    <div class="card-header border-0 pt-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bold text-dark">Tipo de promovidos</span>
+                            <span class="text-muted mt-1 fw-semibold fs-7">De acuerdo a las encuestas realizadas</span>
+                        </h3>
                     </div>
-                    <div class="card-body p-9">
-                        <div class="d-flex flex-wrap">                	
-                            <div class="position-relative d-flex flex-center h-175px w-175px me-15 mb-7">
-                                <div class="position-absolute translate-middle start-50 top-50 d-flex flex-column flex-center">
-                                    <span class="fs-2qx fw-bolder"><span id="spTotalSexo"></span></span>
-                                    <span class="fs-6 fw-bold text-gray-400">
-                                        <a href="#" class="text-gray-700">
-                                            Simpatizantes
-                                        </a>
-                                    </span>
-                                </div>
-                                <canvas id="kt_chart_sexo"></canvas>
-                            </div>
-        
-                            <div class="d-flex flex-column justify-content-center flex-row-fluid  mb-5">                      
-                                
-                                <div class="d-flex align-items-center mb-5">
-                                    <div class="d-flex align-items-center me-2">
-                                        <div class="symbol me-3">
-                                            <div class="symbol-label bg-light">
-                                                <i class="fas fa-mars fs-2x text-primary"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="http://dev.digitalgob.mx/suite/panel-control/1/personal-sexo" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Hombres</a>
-                                            <div class="fs-7 text-muted fw-bold mt-1">
-                                                Porcentaje: <span id="spPorcentajeHombres"></span> %
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="ms-auto fw-bolder text-gray-700">
-                                        <span id="spSexoHombres" class="fs-4"></span>
+                    <div class="card-body pt-5">
+
+                        @foreach ($dashboards as $dashboard)
+                            @php
+                                $color= [1=>"success",2=>"danger",3=>"warning"];
+                            @endphp
+                            <div class="d-flex flex-stack">
+                                <div class="d-flex align-items-center me-3">
+                                    <div class="flex-grow-1">
+                                       
+                                        <span class="fw-bold text-gray-800 fs-7">
+                                            {{ $dashboard->promotedType->description }} :
+                                        </span>                                         
+                                        <span class="text-info text-hover-primary">
+                                            {{ number_format($dashboard->total, 0) }}
+                                        </span>
+                                        
+                                        
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center mb-5">
-                                    <div class="d-flex align-items-center me-2">
-                                        <div class="symbol me-3">
-                                            <div class="symbol-label bg-light">
-                                                <i class="fas fa-venus fs-2x text-danger"></i>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="http://dev.digitalgob.mx/suite/panel-control/2/personal-sexo" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Mujeres</a>
-                                            <div class="fs-7 text-muted fw-bold mt-1">
-                                                Porcentaje del: <span id="spPorcentajeMujeres"></span> %
-                                            </div>
-                                        </div>
+                                <div class="d-flex align-items-center w-100 mw-125px">
+                                    
+                                    <div class="progress h-6px w-100 me-2 bg-light-{{ $color[$dashboard->promotedType->id] }}">
+                                        <div class="progress-bar bg-{{ $color[$dashboard->promotedType->id] }}" role="progressbar" style="width: {{ number_format((($dashboard->total*100)/$promotedNumber),2)  }}%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <div class="ms-auto fw-bolder text-gray-700">
-                                        <span id="spSexoMujeres" class="fs-4"></span>
-                                    </div>
-                                </div>     
-                            </div>
-                        </div>
+                                    <span class="text-gray-400 fw-semibold">{{ number_format((($dashboard->total*100)/$promotedNumber),2)  }}%</span>
+                                </div>
+                            </div>  
+                            <div class="separator separator-dashed my-3"></div>       
+                        @endforeach                    
                     </div>
+                </div>
             </div>
 
         </div>
@@ -202,7 +179,7 @@
                                     <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
                                 </svg>
                             </span>
-                            <input type="text" data-kt-table-widget-4="search" class="form-control w-150px fs-7 ps-12" placeholder="Search">
+                            <input wire:model="search" type="text" data-kt-table-widget-4="search" class="form-control w-150px fs-7 ps-12" placeholder="Buscar...">
                         </div>
                     </div>
                 </div>
@@ -271,6 +248,12 @@
 
 
                                     <td class="text-end" style="padding-right: 10px">
+                                        <a class="btn btn-icon btn-bg-info btn-sm" href="{{ route('promovidos.segumiento.index', $item) }}"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                         <span class="svg-icon svg-icon-3">
+                                            <i class="fa-solid fa-comments text-white"></i>
+                                         </span>
+                                        </a>
                                     </td>
                 
                                 </tr>                                 

@@ -31,10 +31,12 @@ class StructurePromoted extends Model
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";
-        $query->where(function ($query) use ($term) {
-            $query
-                ->where('structure_promoteds.id', 'like', '%'.$term.'%');
-        });
+        $query
+        ->whereHas('member', function($query) use ($term) {
+            $query->where('firstname', 'like', '%'.$term.'%')
+            ->orWhere('lastname', 'like', '%'.$term.'%');
+        })
+        ;
     }
 
     static public function list($electionId){
@@ -56,5 +58,15 @@ class StructurePromoted extends Model
         )        
         ->join('members as m', 'm.id', '=', 'structure_promoteds.member_id')
         ->groupBy('m.sex');
+    }
+
+    static public function promotedTypeTotals($electionId){
+
+        return StructurePromoted::select(
+            '*',            
+            DB::raw('count(*) as total')
+        )        
+        ->with('promotedType')
+        ->groupBy('promoted_type_id');
     }
 }

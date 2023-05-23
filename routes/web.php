@@ -6,6 +6,7 @@ use App\Http\Livewire\Dashboard\DashboardHome;
 use App\Http\Livewire\Election\Elections;
 use App\Http\Livewire\ElectoralStructure\ElectoralSectionsStructures;
 use App\Http\Livewire\ElectoralStructure\ElectoralStructures;
+use App\Http\Livewire\PromotedsStructure\PromotedsComments;
 use App\Http\Livewire\PromotedsStructure\PromotedsStructures;
 use App\Http\Livewire\PromotersStructure\PromotersStructures;
 use Illuminate\Support\Facades\Route;
@@ -42,6 +43,10 @@ Route::get('/coordinadores/{tree}/editar', CoordinatorForm::class)->name('coordi
 
 //Promovidos
 Route::get('/promovidos', PromotersStructures::class)->name('promovidos.index');
+Route::prefix('promovidos')->group(function () {
+    Route::get('/seguimiento/{promoted}', PromotedsComments::class)->name('promovidos.segumiento.index');
+});
+
 
 /*Route::prefix('promovidos')->group(function () {
     Route::get('/arboles', Trees::class)->name('inventario.arboles.index');
