@@ -2,7 +2,8 @@
 
 use App\Http\Livewire\CoordinatorsStructure\CoordinatorForm;
 use App\Http\Livewire\CoordinatorsStructure\CoordinatorsStructures;
-use App\Http\Livewire\Dashboard\DashboardHome;
+//use App\Http\Livewire\Dashboard\DashboardHome;
+use App\Http\Controllers\DashboardController;
 use App\Http\Livewire\Election\Elections;
 use App\Http\Livewire\ElectoralStructure\ElectoralSectionsStructures;
 use App\Http\Livewire\ElectoralStructure\ElectoralStructures;
@@ -29,7 +30,9 @@ Auth::routes();
 
 
 
-Route::get('/home', DashboardHome::class)->name('dashboard.home');
+//Route::get('/home', DashboardController::class)->name('dashboard.home');
+
+
 
 
 Route::get('/estructura', ElectoralStructures::class)->name('estructura.index');
@@ -53,3 +56,7 @@ Route::get('/promotores', PromotersStructures::class)->name('promotores.index');
 Route::get('/promovidos', PromotedsStructures::class)->name('promovidos.index');
 
 Route::get('/elecciones', Elections::class)->name('elecicones.index');
+
+
+Route::get('/home', [DashboardController::class, 'index'])->name('dashboard.home'); 
+Route::get('panel-control/result-index', [DashboardController::class, 'result_data']);

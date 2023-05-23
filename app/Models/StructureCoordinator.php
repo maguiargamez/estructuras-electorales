@@ -74,4 +74,8 @@ class StructureCoordinator extends Model
         ->where('structure_coordinators.election_id', $electionId)
         ->whereIn('structure_coordinators.position_id', [1,2,3,4]);
     }
+
+    public static function queryToDBCoordinadores($vfiltros=[])
+    {
+    }
 }

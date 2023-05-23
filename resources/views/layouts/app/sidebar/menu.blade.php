@@ -4,7 +4,7 @@
     <!--begin:Menu item-->
     <div class="menu-item">
         <!--begin:Menu link-->
-        <a class="menu-link" href="https://preview.keenthemes.com/html/metronic/docs/getting-started/changelog" target="_blank">
+        <a class="menu-link" href="{{ url('home') }}">
             <span class="menu-icon">
                 <!--begin::Svg Icon | path: icons/duotune/coding/cod003.svg-->
                 <span class="svg-icon svg-icon-2">

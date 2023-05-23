@@ -7,13 +7,14 @@
 		
 		<meta property="og:locale" content="en_US" />
 		<meta property="og:site_name" content="Estructuras electorales" />
+		@yield('meta')
 		<link rel="shortcut icon" href="{{ asset('img/logos/favicon.ico') }}" />
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 
         <link href="{{ asset('metronic/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('metronic/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('css/custom-styles.css') }}" rel="stylesheet" type="text/css"/>
-		@yield('custom_styles')
+		@yield('css')
 
 	</head>
 
@@ -48,18 +49,32 @@
 						<!--begin::Content wrapper-->
 						<div class="d-flex flex-column flex-column-fluid">
 
+							<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+								<!--begin::Toolbar container-->
+								<div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
+									<!--begin::Page title-->
+									<div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+										<h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">@yield('title')</h1>
+										
+										<!--begin::Breadcrumb-->
+										<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+											@yield('breadcrumbs')											
+										</ul>
+										<!--end::Breadcrumb-->
+									</div>
+									<div class="d-flex align-items-center gap-2 gap-lg-3">
+										@yield('buttons')										
+									</div>
+								</div>
+							</div>									
 
-							{{-- @include('layouts.app.toolbar') --}}
-
-
-		
-									
-
-									@yield('content')						
-
-								
+							<div id="kt_app_content" class="app-content flex-column-fluid">
+								<!--begin::Content container-->
+								<div id="kt_app_content_container" class="app-container container-fluid">
+									@yield('content')
+								</div>
 								<!--end::Content container-->
-
+							</div>
 							
 							<!--end::Content-->
 						</div>
@@ -80,7 +95,12 @@
         <script src="{{ asset('metronic/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 
 
-		@yield('scripts')
+        @yield('js')
+
+        <script type="text/javascript">
+            var vuri = window.location.origin +'/estructuras-electorales/public';
+            @yield('scripts')
+        </script>
                             
     </body>
 
