@@ -7,7 +7,7 @@
             ></x-breadcrumb>
 
             <a href="{{ route('coordinadores.create') }}" type="button" class="btn btn-sm btn-primary">
-                <i class="fa-solid fa-user-tie"></i>   
+                <i class="fa-solid fa-plus"></i>   
                 Registrar promovido
             </a>
         </div>
@@ -214,7 +214,7 @@
                                 <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">FALTANTE</th>-->
                                 <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1">TIPO DE PROMOVIDO</th>
 
-                                <th class="text-end sorting_disabled" rowspan="1" colspan="1" style="width: 25.6667px;"></th>
+                                <th class="text-end sorting_disabled" rowspan="1" colspan="1" style="width: 100px;"></th>
                             </tr>
                             <!--end::Table row-->
                         </thead>
@@ -248,8 +248,14 @@
 
 
                                     <td class="text-end" style="padding-right: 10px">
+                                        <a class="btn btn-icon btn-bg-info btn-sm" href="{{ route('promovidos.apoyos.index', $item) }}"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Apoyos">
+                                         <span class="svg-icon svg-icon-3">
+                                            <i class="fa-solid fa-headset text-white"></i>
+                                         </span>
+                                        </a>
                                         <a class="btn btn-icon btn-bg-info btn-sm" href="{{ route('promovidos.segumiento.index', $item) }}"
-                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Seguimientos">
                                          <span class="svg-icon svg-icon-3">
                                             <i class="fa-solid fa-comments text-white"></i>
                                          </span>

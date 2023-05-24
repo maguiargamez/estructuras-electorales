@@ -27,7 +27,7 @@
 @section('content')
 	<div class="row g-5 g-xl-10">
 		<div class="col-xl-12 mb-xl-10">
-			<div class="card border-transparent" data-theme="light" style="background-color: #1C325E;">
+			<div class="card border-transparent" data-theme="light" style="background-color: #dfdfdf;">
 				<div class="card-body d-flex ps-xl-15 flex-column justify-content-between">
 					<div class="m-0">
 						<div class="position-relative text-center fs-2hx z-index-2 fw-bold text-white mb-1">
@@ -56,7 +56,7 @@
 			                        </div>
 			                    </div> 
 						</div>
-						<img src="{{ asset('metronic/assets/media/illustrations/sigma-1/17-dark.png') }}" class="position-absolute me-3 bottom-0 end-0 h-200px" style="margin-bottom: 120px" />
+						
 					</div>
 				</div>
 			</div>

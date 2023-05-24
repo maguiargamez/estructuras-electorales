@@ -64,7 +64,7 @@
                                 <a class="btn btn-icon btn-bg-info btn-active-color-default btn-sm" href="{{ route('estructura.secciones', $item->id) }}"
                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Secciones">
                                  <span class="svg-icon svg-icon-3 ">
-                                    <i class="fa-solid fa-user-plus text-white"></i>
+                                    <i class="fa-solid fa-sitemap text-white"></i>
                                  </span>
                                 </a>
                             </td>

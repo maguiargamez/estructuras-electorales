@@ -34,7 +34,8 @@ class StructurePromoted extends Model
         $query
         ->whereHas('member', function($query) use ($term) {
             $query->where('firstname', 'like', '%'.$term.'%')
-            ->orWhere('lastname', 'like', '%'.$term.'%');
+            ->orWhere('lastname', 'like', '%'.$term.'%')
+            ->orWhere(DB::raw('CONCAT(firstname, " ", lastname)'), 'like', '%'.$term.'%');
         })
         ;
     }

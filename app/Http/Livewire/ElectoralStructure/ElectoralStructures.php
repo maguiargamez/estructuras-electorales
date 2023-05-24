@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 class ElectoralStructures extends Component
 {
     use WithPagination, WithSorting;
-    public $title = 'Estructura electoral';
+    public $title = 'Secciones';
     public $breadcrumb = [
         "Inicio" => null
     ];

@@ -75,6 +75,20 @@ class StructureCoordinator extends Model
         ->whereIn('structure_coordinators.position_id', [1,2,3,4]);
     }
 
+    static public function listPromoters($electionId){
+        return StructureCoordinator::select(
+            'structure_coordinators.*',
+            DB::raw('(select sum(t2.goal) from structure_coordinators as t2 where t2.structure_coordinator_id=structure_coordinators.id and t2.position_id=5) as goal2 '),
+            DB::raw('(select count(*) from structure_coordinators as t2 where t2.structure_coordinator_id=structure_coordinators.id and t2.position_id=5) as promoteds '),            
+
+        )
+        ->with('member')
+        ->with('position')
+        ->where('structure_coordinators.election_id', $electionId)
+        ->whereIn('structure_coordinators.position_id', [5]);
+    }
+
+
     public static function queryToDBCoordinadores($vfiltros=[])
     {
     }

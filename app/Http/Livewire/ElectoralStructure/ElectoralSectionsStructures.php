@@ -14,7 +14,7 @@ use App\Models\StructureCoordinator;
 class ElectoralSectionsStructures extends Component
 {
     use WithPagination, WithSorting;
-    public $title = 'Estructura electoral';
+    public $title = 'Secciones';
 
     public $sections=[];
     public $structure;

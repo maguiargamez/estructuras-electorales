@@ -9,6 +9,7 @@ use App\Http\Livewire\ElectoralStructure\ElectoralSectionsStructures;
 use App\Http\Livewire\ElectoralStructure\ElectoralStructures;
 use App\Http\Livewire\PromotedsStructure\PromotedsComments;
 use App\Http\Livewire\PromotedsStructure\PromotedsStructures;
+use App\Http\Livewire\PromotedsStructure\PromotedsSupports;
 use App\Http\Livewire\PromotersStructure\PromotersStructures;
 use Illuminate\Support\Facades\Route;
 
@@ -46,20 +47,17 @@ Route::get('/coordinadores/crear', CoordinatorForm::class)->name('coordinadores.
 Route::get('/coordinadores/{tree}/editar', CoordinatorForm::class)->name('coordinadores.edit');
 
 //Promovidos
-Route::get('/promovidos', PromotersStructures::class)->name('promovidos.index');
+Route::get('/promovidos', PromotedsStructures::class)->name('promovidos.index');
 Route::prefix('promovidos')->group(function () {
     Route::get('/seguimiento/{promoted}', PromotedsComments::class)->name('promovidos.segumiento.index');
+    Route::get('/apoyos/{promoted}', PromotedsSupports::class)->name('promovidos.apoyos.index');
 });
 
-
-/*Route::prefix('promovidos')->group(function () {
-    Route::get('/arboles', Trees::class)->name('inventario.arboles.index');
-    Route::get('/arboles/crear', TreeForm::class)->name('inventario.arboles.create');
-    Route::get('/arboles/{tree}/editar', TreeForm::class)->name('inventario.arboles.edit');
-});*/
-
+//Promotores
 Route::get('/promotores', PromotersStructures::class)->name('promotores.index');
-Route::get('/promovidos', PromotedsStructures::class)->name('promovidos.index');
+
+
+
 
 Route::get('/elecciones', Elections::class)->name('elecicones.index');
 

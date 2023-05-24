@@ -8,7 +8,7 @@
 
             <a href="{{ route('coordinadores.create') }}" type="button" class="btn btn-sm btn-primary">
                 <i class="fa-solid fa-plus"></i>   
-                Registrar coordinador
+                Registrar promotor
             </a>
         </div>
 
@@ -22,23 +22,6 @@
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label fw-bold text-dark">Filtros de busqueda</span>
-                            <!--<span class="text-muted mt-1 fw-semibold fs-7">Avg. 72% completed lessons</span>-->
-                        </h3>
-                        <div class="card-toolbar">
-                            <!-- <a href="#" class="btn btn-sm btn-light">All Lessons</a> -->
-                        </div>
-                    </div>
-                    <div class="card-body pt-5">
-
-                                           
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4">
-                <div class="card card-flush h-xl-100">
-                    <div class="card-header border-0 pt-5">
-                        <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bold text-dark">Coordinadores registrados</span>
                             <span class="text-muted mt-1 fw-semibold fs-7">Avg. 72% completed lessons</span>
                         </h3>
                         <div class="card-toolbar">
@@ -47,34 +30,12 @@
                     </div>
                     <div class="card-body pt-5">
 
-                        @foreach ($dashboards as $dashboard)
-                            <div class="d-flex flex-stack">
-                                <div class="d-flex align-items-center me-3">
-                                    <div class="flex-grow-1">
-                                       
-                                        <span class="fw-bold text-gray-800 fs-7">{{ $dashboard->coordinator }} :</span>
-                                        
-                                    
-                                    
-                                        {{ $dashboard->totalCoordinators }} de 
-                                        <span class="text-info text-hover-primary">
-                                            {{ $dashboard->totals }}
-                                        </span>
-                                        
-                                        
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center w-100 mw-125px">
-                                    <div class="progress h-6px w-100 me-2 bg-light-success">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ number_format((($dashboard->totals*100)/$dashboard->totalCoordinators),2)  }}%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <span class="text-gray-400 fw-semibold">{{ number_format((($dashboard->totals*100)/$dashboard->totalCoordinators),2)  }}%</span>
-                                </div>
-                            </div>  
-                            <div class="separator separator-dashed my-3"></div>       
-                        @endforeach                    
+                                          
                     </div>
                 </div>
+            </div>
+            <div class="col-xl-4">
+
             </div>
 
         </div>
