@@ -3,7 +3,7 @@
 use App\Http\Livewire\CoordinatorsStructure\CoordinatorForm;
 use App\Http\Livewire\CoordinatorsStructure\CoordinatorsStructures;
 //use App\Http\Livewire\Dashboard\DashboardHome;
-use App\Http\Controllers\DashboardController;
+
 use App\Http\Livewire\Election\Elections;
 use App\Http\Livewire\ElectoralStructure\ElectoralSectionsStructures;
 use App\Http\Livewire\ElectoralStructure\ElectoralStructures;
@@ -61,6 +61,6 @@ Route::get('/promotores', PromotersStructures::class)->name('promotores.index');
 
 Route::get('/elecciones', Elections::class)->name('elecicones.index');
 
+ require base_path('routes/route_adrian.php');
 
-Route::get('/home', [DashboardController::class, 'index'])->name('dashboard.home'); 
-Route::get('panel-control/result-index', [DashboardController::class, 'result_data']);
+

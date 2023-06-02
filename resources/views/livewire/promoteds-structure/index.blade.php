@@ -6,7 +6,7 @@
             :title="$title"
             ></x-breadcrumb>
 
-            <a href="{{ route('coordinadores.create') }}" type="button" class="btn btn-sm btn-primary">
+            <a href="{{ route('promovidos.create') }}" type="button" class="btn btn-sm btn-primary">
                 <i class="fa-solid fa-plus"></i>   
                 Registrar promovido
             </a>

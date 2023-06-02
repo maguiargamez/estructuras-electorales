@@ -56,6 +56,22 @@ return [
             'throw' => false,
         ],
 
+        'file-electoral' => [
+            'driver' => 'local',
+            //'root'   => '/var/www/core-suite/storage/app/anexos',
+            'root'   => 'C:\AppServ\www\estructuras-electorales\storage\app\fotos',
+            'permissions' => [
+                'file' => [
+                    'public' => 0644,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0755,
+                    'private' => 0755,
+                ],
+            ],
+        ],
+
     ],
 
     /*

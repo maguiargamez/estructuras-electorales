@@ -98,7 +98,7 @@
         @yield('js')
 
         <script type="text/javascript">
-            var vuri = window.location.origin +'';
+            var vuri = window.location.origin +'/estructuras-electorales/public';
             @yield('scripts')
         </script>
                             
