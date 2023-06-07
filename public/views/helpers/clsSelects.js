@@ -21,6 +21,29 @@ function getSchoolGrade(vdataSelect=0)
     });
  }
 
+function getActivities(vdataSelect=0)
+ {
+    $.ajax({
+        type: "GET",
+        url: vuri + '/type/activities',
+        data: {
+          method: 'get'
+        },
+        success: function(response) {
+            var html ='';
+                html+='<option value="">--- Ocupacion ---</option>';
+            for ( var i=0; i<response.respuesta.length; i++ ) {
+                html+='<option value='+response.respuesta[i].id+'>'+response.respuesta[i].description+'</option>';
+            }
+            $('#activity_id').html(html);
+
+            if (vdataSelect != 0 )
+                $('#activity_id').val(vdataSelect).trigger('change');
+        },
+        error: function(json) { }
+    });
+ }
+
 function getDistrictLocalMunicipality(vdataSelect=0)
  {
     $.ajax({
@@ -48,20 +71,23 @@ function getDistrictLocalMunicipality(vdataSelect=0)
 function onChangeMunicipioDtto()
  {
     var id=$("#district_id").val();
-    if ( id != "" ) {
-        $('#coordinator_id').empty();
-        $('#dvCoordinators').hide();
+    if ( id != "" ) {      
+        $('#promoter_id').empty();
+        $('#dvPromoter').hide();
+        $('#section_id').empty();
+        $('#dvSection').hide();
         $('#dvMunicipality').show();
         getMunicipality_Dtto(0, id);
     }
     else {
         $('#municipality_id').empty();        
         $('#dvMunicipality').hide();
-        $('#coordinator_id').empty();
-        $('#dvCoordinators').hide();
+        $('#section_id').empty();
+        $('#dvSection').hide();
+        $('#promoter_id').empty();
+        $('#dvPromoter').hide();
     }
  }
-
 
 function getMunicipality_Dtto(selectOpt=0, dtto_loc)
  {      
@@ -76,10 +102,10 @@ function getMunicipality_Dtto(selectOpt=0, dtto_loc)
             var html ='';
                 html+='<option value="">--- Municipio ---</option>';
             for ( var i=0; i<json.respuesta.length; i++ ) {
-                html+='<option value='+json.respuesta[i].id+'>'+json.respuesta[i].municipality+'</option>';
+                html+='<option value='+json.respuesta[i].municipality_key+'>'+json.respuesta[i].municipality+'</option>';
             }
             $('#municipality_id').html(html);
-            $('#municipality_id').attr('onChange', 'onChangeCoordinatorsMpio()');
+            $('#municipality_id').attr('onChange', 'onChangeSectionMpio('+ dtto_loc +')');
             
             if (selectOpt != 0 ) {                
                 $('#municipality_id').val(selectOpt).trigger('change');
@@ -89,38 +115,84 @@ function getMunicipality_Dtto(selectOpt=0, dtto_loc)
     });
  }
 
-function onChangeCoordinatorsMpio()
+function onChangeSectionMpio( dtto_loc)
  {
     var id=$("#municipality_id").val();
     if ( id != "" ) {
-        $('#dvCoordinators').show();
-        getCoordinatorsMpio(0, id);
+        $('#dvSection').show();
+        $('#promoter_id').empty();
+        $('#dvPromoter').hide();
+        getSectionMpio(0, dtto_loc, id);
     }
     else {
-        $('#coordinator_id').empty();
-        $('#dvCoordinators').hide();
+        $('#section_id').empty();
+        $('#dvSection').hide();
+        $('#promoter_id').empty();
+        $('#dvPromoter').hide();
     }
  }
 
-function getCoordinatorsMpio(selectOpt=0, mpio)
+
+function getSectionMpio(selectOpt=0, dtto_loc=0, mpio)
  {      
     $.ajax({
         type: "GET",
-        url: vuri + '/type/coordinators',
+        url: vuri + '/type/sections',
         data: {
             method: 'get',
-            municipality: mpio
+            municipality: mpio,
+            local_district: dtto_loc
         },
         success: function(json) {
             var html ='';
-                html+='<option value="">--- Coordinador ---</option>';
+                html+='<option value="">--- Seccion ---</option>';
+            for ( var i=0; i<json.respuesta.length; i++ ) {
+                html+='<option value='+json.respuesta[i].section+'>'+json.respuesta[i].section+'</option>';
+            }
+            $('#section_id').html(html);
+            $('#section_id').attr('onChange', 'onChangePromoterSection()');
+           
+            if (selectOpt != 0 ) {                
+                $('#section_id').val(selectOpt).trigger('change');
+            }
+        },
+        error: function(json) { }
+    });
+ }
+
+function onChangePromoterSection()
+ {
+    var id=$("#section_id").val();
+
+    if ( id != "" ) {
+        $('#dvPromoter').show();
+        getPromotersSection(0, id);
+    }
+    else {
+        $('#promoter_id').empty();
+        $('#dvPromoter').hide();
+    }
+ }
+
+function getPromotersSection(selectOpt=0, section)
+ {      
+    $.ajax({
+        type: "GET",
+        url: vuri + '/type/promoters',
+        data: {
+            method: 'get',
+            section_id: section
+        },
+        success: function(json) {
+            var html ='';
+                html+='<option value="">--- Promotor ---</option>';
             for ( var i=0; i<json.respuesta.length; i++ ) {
                 html+='<option value='+json.respuesta[i].id+'>'+json.respuesta[i].coordinator+'</option>';
             }
-            $('#coordinator_id').html(html);
+            $('#promoter_id').html(html);
            
             if (selectOpt != 0 ) {                
-                $('#coordinator_id').val(selectOpt).trigger('change');
+                $('#promoter_id').val(selectOpt).trigger('change');
             }
         },
         error: function(json) { }

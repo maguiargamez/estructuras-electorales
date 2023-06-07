@@ -248,18 +248,27 @@
 
 
                                     <td class="text-end" style="padding-right: 10px">
-                                        <a class="btn btn-icon btn-bg-info btn-sm" href="{{ route('promovidos.apoyos.index', $item) }}"
-                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Apoyos">
-                                         <span class="svg-icon svg-icon-3">
-                                            <i class="fa-solid fa-headset text-white"></i>
-                                         </span>
-                                        </a>
-                                        <a class="btn btn-icon btn-bg-info btn-sm" href="{{ route('promovidos.segumiento.index', $item) }}"
-                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Seguimientos">
-                                         <span class="svg-icon svg-icon-3">
-                                            <i class="fa-solid fa-comments text-white"></i>
-                                         </span>
-                                        </a>
+                                        <div class="btn-group">
+                                            <a class="btn btn-icon btn-bg-info btn-sm" href="{{ route('promovidos.edit', $item) }}"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                             <span class="svg-icon svg-icon-3">
+                                                <i class="fa-solid fa-edit text-white"></i>
+                                             </span>
+                                            </a>
+                                            <a class="btn btn-icon btn-bg-info btn-sm" href="{{ route('promovidos.apoyos.index', $item) }}"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Apoyos">
+                                             <span class="svg-icon svg-icon-3">
+                                                <i class="fa-solid fa-headset text-white"></i>
+                                             </span>
+                                            </a>
+                                            <a class="btn btn-icon btn-bg-info btn-sm" href="{{ route('promovidos.segumiento.index', $item) }}"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Seguimientos">
+                                             <span class="svg-icon svg-icon-3">
+                                                <i class="fa-solid fa-comments text-white"></i>
+                                             </span>
+                                            </a>
+                                        </div>
+                                        
                                     </td>
                 
                                 </tr>                                 

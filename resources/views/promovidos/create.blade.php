@@ -23,7 +23,7 @@
 
 @section('buttons')
 	<a href="{{ url('promovidos') }}" class="btn btn-sm btn-dark"><i class="fas fa-arrow-left"></i>Regresar</a> 
-    <button id="btn-guardar" class="btn btn-sm btn-primary btn-guardar"><i class="far fa-save"></i> Guardar</button>
+    <button id="btn-create-promovido" class="btn btn-sm btn-primary btn-create-promovido"><i class="far fa-save"></i> Guardar</button>
 @endsection
 
 @section('content')
@@ -35,8 +35,9 @@
 @section('js')
 	<script src="{{ asset('views/promovidos/create.js') }}"></script>
     <script src="{{ asset('views/helpers/clsSelects.js') }}"></script> 
+    <script src="{{ asset('views/helpers/clsValidate.js') }}"></script> 
 @endsection
 
 @section('scripts')
-	$('#fecha_nacimiento').flatpickr({dateFormat: "d/m/Y", "locale": "es"});
+	$('#birth_date').flatpickr({dateFormat: "d/m/Y"});
 @endsection

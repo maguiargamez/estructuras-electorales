@@ -62,14 +62,15 @@ class clsStructureCoordinators extends Model
             });
         }    
    
-        if(array_key_exists('municipality', $vfiltros)) {
-            $vdatoFiltro=$vfiltros["municipality"];
+        if(array_key_exists('section_id', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["section_id"];
             $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
-                $vsql->where('structure_coordinators.municipality_key', $vdatoFiltro);
+                $vsql->where('structure_coordinators.section', $vdatoFiltro);
             });
         } 
         
         $vqueryToDB=$vqueryToDB->where('structure_coordinators.election_id', 1);
+        $vqueryToDB=$vqueryToDB->where('structure_coordinators.position_id', 5);
 
         $vqueryToDB=$vqueryToDB->orderBy('structure_coordinators.id', 'DESC');
         return $vqueryToDB;

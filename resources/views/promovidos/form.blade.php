@@ -6,7 +6,7 @@
     			<h2 class="mb-5">Datos del promovido</h2>
     			<div class="row">	
     				<div class="row mb-7">
-						<div class="col-md-4 col-xl-4">
+						<div class="col-md-4 col-xl-3">
 							<div class="position-relative d-flex align-items-center">
 								<div class="symbol symbol-20px me-4 position-absolute ms-4">
 									<i class="fa fa-globe"></i>
@@ -15,7 +15,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-4 col-xl-4" id="dvMunicipality" style="display: none;">
+						<div class="col-md-4 col-xl-3" id="dvMunicipality" style="display: none;">
 							<div class="position-relative d-flex align-items-center">
 								<div class="symbol symbol-20px me-4 position-absolute ms-4">
 									<i class="fa fa-location-dot"></i>
@@ -24,12 +24,21 @@
 							</div>
 						</div>
 
-						<div class="col-md-4 col-xl-4" id="dvCoordinators" style="display: none;">
+						<div class="col-md-4 col-xl-3" id="dvSection" style="display: none;">
+							<div class="position-relative d-flex align-items-center">
+								<div class="symbol symbol-20px me-4 position-absolute ms-4">
+									<i class="fa fa-location-dot"></i>
+								</div>
+								<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Distrito" id="section_id" name="section_id"></select>
+							</div>
+						</div>
+
+						<div class="col-md-4 col-xl-3" id="dvPromoter" style="display: none;">
 							<div class="position-relative d-flex align-items-center">
 								<div class="symbol symbol-20px me-4 position-absolute ms-4">
 									<i class="fa fa-people-arrows"></i>
 								</div>
-								<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Distrito" id="coordinator_id" name="coordinator_id"></select>
+								<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Distrito" id="promoter_id" name="promoter_id"></select>
 							</div>
 						</div>
 					</div>
@@ -44,23 +53,15 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fas fa-user-alt"></i>
 										</div>
-										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Nombre(s)" name="nombre" id="nombre" />
+										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Nombre(s)" name="firstname" id="firstname" />
 									</div>							
 								</div>
-								<div class="col-md-4 col-xl-4">							
+								<div class="col-md-8 col-xl-8">							
 									<div class="position-relative d-flex align-items-center">
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fas fa-user-alt"></i>
 										</div>
-										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Primer apellido" name="primer_apellido" id="primer_apellido"  />
-									</div>							
-								</div>
-								<div class="col-md-4 col-xl-4">							
-									<div class="position-relative d-flex align-items-center">
-										<div class="symbol symbol-20px me-4 position-absolute ms-4">
-											<i class="fas fa-user-alt"></i>
-										</div>
-										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Segundo apellido" name="segundo_apellido" id="segundo_apellido"  />
+										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Apellidos" name="lastname" id="lastname"  />
 									</div>							
 								</div>
 							</div>
@@ -71,10 +72,10 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fas fa-venus-mars"></i>
 										</div>
-										<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Sexo" id="sexo" name="sexo">
+										<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Sexo" id="sex" name="sex">
 										    <option value="">--- Sexo ---</option>
 										    <option value="1">Hombre</option>
-										    <option value="2">Mujer</option>
+										    <option value="0">Mujer</option>
 										</select>
 									</div>
 								</div>
@@ -84,7 +85,7 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fa fa-calendar"></i>
 										</div>
-										<input class="form-control ps-12 flatpickr-input removeIsInvalid" placeholder="Fecha de nacimiento" name="fecha_nacimiento" id="fecha_nacimiento" />
+										<input class="form-control ps-12 flatpickr-input removeIsInvalid" placeholder="Fecha de nacimiento" name="birth_date" id="birth_date" />
 									</div>
 								</div>
 
@@ -93,7 +94,7 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fa fa-hashtag"></i>
 										</div>
-										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Edad" name="edad" id="edad"  />
+										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Edad" name="age" id="age"  />
 									</div>							
 								</div>
 							</div>
@@ -104,7 +105,7 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="far fa-credit-card"></i>
 										</div>
-										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Vigencia elector" name="vigencia_elector" id="vigencia_elector"  />
+										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Vigencia elector" name="electoral_key_validity" id="electoral_key_validity"  />
 									</div>							
 								</div>
 
@@ -113,7 +114,7 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="far fa-credit-card"></i>
 										</div>
-										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Clave elector" name="clave_elector" id="clave_elector"  />
+										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Clave elector" name="electoral_key" id="electoral_key"  />
 									</div>							
 								</div>
 
@@ -133,7 +134,7 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fas fa-person-booth"></i>
 										</div>
-										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Sección elector" name="seccion_elector" id="seccion_elector"  />
+										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Sección elector" name="section" id="section"  />
 									</div>					
 								</div>
 
@@ -142,7 +143,7 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fa fa-map-marked-alt"></i>
 										</div>
-										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Domicilio" name="domicilio" id="domicilio" />
+										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Domicilio" name="address" id="address" />
 									</div>								
 								</div>	
 							</div>
@@ -153,7 +154,7 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fas fa-route"></i>
 										</div>
-										<input class="form-control form-control-lg ps-12" type="text" placeholder="Colonia" name="colonia" id="colonia" />
+										<input class="form-control form-control-lg ps-12" type="text" placeholder="Colonia" name="neighborhood" id="neighborhood" />
 									</div>
 								</div>
 
@@ -162,21 +163,22 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fas fa-map-marker-alt"></i>
 										</div>
-										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="C.P." name="cp" id="cp" />
+										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="C.P." name="zip_code" id="zip_code" />
 									</div>	
 								</div>
 
-								<div class="col-md-2 col-xl-2">
+
+								<div class="col-md-3 col-xl-3">
 									<div class="position-relative d-flex align-items-center">
 										<div class="mb-2">
 											<label class="form-label fw-semibold">¿ Afiliación ?</label>
 											<div class="d-flex">
 												<label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-													<input class="form-check-input" type="radio" value="0" checked="checked" id="rdNo" name="afiliacion"  />
+													<input class="form-check-input" type="radio" value="0" checked="checked" id="rdNo" name="membership"  />
 													<span class="form-check-label">NO</span>
 												</label>
 												<label class="form-check form-check-sm form-check-custom form-check-solid">
-													<input class="form-check-input" type="radio" value="1" id="rdSi" name="afiliacion" />
+													<input class="form-check-input" type="radio" value="1" id="rdSi" name="membership" />
 													<span class="form-check-label">SI</span>
 												</label>
 											</div>
@@ -184,12 +186,21 @@
 									</div>
 								</div>
 
-								<div class="col-md-4 col-xl-4" id="dvOrganizacion" style="display: none;">
+								<div class="col-md-3 col-xl-3">
 									<div class="position-relative d-flex align-items-center">
-										<div class="symbol symbol-20px me-4 position-absolute ms-4">
-											<i class="fa fa-building"></i>
+										<div class="mb-2">
+											<label class="form-label fw-semibold">¿ Organizacion politica ?</label>
+											<div class="d-flex">
+												<label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+													<input class="form-check-input" type="radio" value="0" checked="checked" id="rdNoOrg" name="political_organization"  />
+													<span class="form-check-label">NO</span>
+												</label>
+												<label class="form-check form-check-sm form-check-custom form-check-solid">
+													<input class="form-check-input" type="radio" value="1" id="rdSiOrg" name="political_organization" />
+													<span class="form-check-label">SI</span>
+												</label>
+											</div>
 										</div>
-										<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Organizacion politica" id="id_organizacion" name="id_organizacion"></select>
 									</div>
 								</div>
 							</div>
@@ -210,7 +221,7 @@
 										<div class="symbol symbol-20px me-4 position-absolute ms-4">
 											<i class="fa fa-briefcase"></i>
 										</div>
-										<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Ocupacion" id="id_ocupacion" name="id_ocupacion"></select>
+										<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Ocupacion" id="activity_id" name="activity_id"></select>
 									</div>
 								</div>
 							</div>							
@@ -271,7 +282,7 @@
 								<div class="symbol symbol-20px me-4 position-absolute ms-4">
 									<i class="fa fa-mobile-alt"></i>
 								</div>
-								<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Teléfono celular" name="telefono_celular" id="telefono_celular" />
+								<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Teléfono celular" name="mobile_phone" id="mobile_phone" />
 							</div>
 						</div>
 
@@ -280,7 +291,7 @@
 								<div class="symbol symbol-20px me-4 position-absolute ms-4">
 									<i class="fa fa-phone-alt"></i>
 								</div>
-								<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Teléfono casa" name="telefono_casa" id="telefono_casa" />
+								<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Teléfono casa" name="house_phone" id="house_phone" />
 							</div>
 						</div>
 
@@ -289,7 +300,7 @@
 								<div class="symbol symbol-20px me-4 position-absolute ms-4">
 									<i class="far fa-envelope"></i>
 								</div>
-								<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Correo electrónico" name="correo" id="correo" />
+								<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Correo electrónico" name="email" id="email" />
 							</div>
 						</div>
 
@@ -298,7 +309,7 @@
 								<div class="symbol symbol-20px me-4 position-absolute ms-4">
 									<i class="fa fa-share-nodes"></i>
 								</div>
-								<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Redes sociales" id="red_social" name="red_social">
+								<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Redes sociales" id="has_social_networks" name="has_social_networks">
 								    <option value="">--- Redes sociales ---</option>
 								    <option value="0">NO</option>
 								    <option value="1">SI</option>

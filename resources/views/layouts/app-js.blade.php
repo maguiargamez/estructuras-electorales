@@ -99,6 +99,7 @@
 
         <script type="text/javascript">
             var vuri = window.location.origin +'/estructuras-electorales/public';
+            var vuri_ine = window.location.origin +'/estructuras-electorales/storage/app/ine';
             @yield('scripts')
         </script>
                             

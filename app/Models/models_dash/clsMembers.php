@@ -33,7 +33,8 @@ class clsMembers extends Model
         'firstname',
         'lastname',
         'sex',
-        'birth_date',        
+        'birth_date', 
+        'age',       
         'electoral_key',
         'electoral_key_validity',
         'curp',
@@ -68,6 +69,36 @@ class clsMembers extends Model
         //'id',
 
     ];
+
+    public static function queryToDB($vfiltros=[])
+
+     {
+        /**
+         * Consulta principal a la tabla members, para obtener datos 
+         * 05 de Junio de 2023
+         * */
+
+        $vqueryToDB=clsMembers::select('*');
+
+              
+        if ( array_key_exists('clave_elector', $vfiltros) ) {
+            $filtro= $vfiltros["clave_elector"];
+            $vqueryToDB= $vqueryToDB->where( function($sql) use ($filtro){
+                    $sql->where("members.electoral_key", $filtro);
+                });
+        }
+
+        if ( array_key_exists('id_promovidoUPD', $vfiltros) ) {
+            $filtro= $vfiltros["id_promovidoUPD"];
+            $vqueryToDB= $vqueryToDB->where( function($sql) use ($filtro){
+                    $sql->where("members.id", '!=', $filtro);
+                });
+        }
+
+        $vqueryToDB=$vqueryToDB->whereNull('members.deleted_at');
+
+        return $vqueryToDB;
+     }
 
     public static function queryToDBCoordinadores($vfiltros=[])
      {

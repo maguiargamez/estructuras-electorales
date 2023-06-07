@@ -59,7 +59,7 @@ return [
         'file-electoral' => [
             'driver' => 'local',
             //'root'   => '/var/www/core-suite/storage/app/anexos',
-            'root'   => 'C:\AppServ\www\estructuras-electorales\storage\app\fotos',
+            'root'   => 'C:\AppServ\www\estructuras-electorales\storage\app\ine',
             'permissions' => [
                 'file' => [
                     'public' => 0644,

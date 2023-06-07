@@ -10,11 +10,15 @@ Route::get('panel-control/result-index', [DashboardController::class, 'result_da
 
 /*Ruta para los promovidos*/
 Route::resource('promovidos', PromovidosController::class)->except(['index']);
+Route::post('promovidos/update', [PromovidosController::class, 'update'])->name('promovidos.update');
 
 
+Route::get('promovido/get-datos', [PromovidosController::class, 'getDatos']);
 
 /*Ruta para los selects*/
 Route::get('type/school-grade', [CombosController::class, 'school_grade']);
 Route::get('type/district', [CombosController::class, 'district']);
 Route::get('type/municipality', [CombosController::class, 'municipality']);
-Route::get('type/coordinators', [CombosController::class, 'coordinators']);
+Route::get('type/sections', [CombosController::class, 'sections']);
+Route::get('type/promoters', [CombosController::class, 'promoters']);
+Route::get('type/activities', [CombosController::class, 'activities']);
