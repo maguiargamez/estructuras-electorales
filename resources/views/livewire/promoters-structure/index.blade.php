@@ -6,7 +6,7 @@
             :title="$title"
             ></x-breadcrumb>
 
-            <a href="{{ route('coordinadores.create') }}" type="button" class="btn btn-sm btn-primary">
+            <a href="{{ route('promotores.create') }}" type="button" class="btn btn-sm btn-primary">
                 <i class="fa-solid fa-plus"></i>   
                 Registrar promotor
             </a>
@@ -130,6 +130,14 @@
 
 
                                     <td class="text-end" style="padding-right: 10px">
+                                        <div class="btn-group">
+                                            <a class="btn btn-icon btn-bg-info btn-sm" href="{{ route('promotores.edit', $item) }}"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                             <span class="svg-icon svg-icon-3">
+                                                <i class="fa-solid fa-edit text-white"></i>
+                                             </span>
+                                            </a>                                           
+                                        </div>
                                     </td>
                 
                                 </tr>                                 

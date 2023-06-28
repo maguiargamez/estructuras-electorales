@@ -85,7 +85,8 @@ class StructureCoordinator extends Model
         ->with('member')
         ->with('position')
         ->where('structure_coordinators.election_id', $electionId)
-        ->whereIn('structure_coordinators.position_id', [5]);
+        ->whereIn('structure_coordinators.position_id', [5])
+        ->orderBy('structure_coordinators.id', 'DESC');
     }
 
 

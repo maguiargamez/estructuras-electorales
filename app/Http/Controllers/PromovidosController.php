@@ -220,10 +220,10 @@ class PromovidosController extends Controller
 
         if($vrequest->has_social_networks == 0)
         {
-            $vdatos['facebook'] = null;
+            $vdatos['facebook']  = null;
             $vdatos['instagram'] = null;
-            $vdatos['twitter'] = null;
-            $vdatos['tiktok'] = null;
+            $vdatos['twitter']   = null;
+            $vdatos['tiktok']    = null;
         }
            
         try {

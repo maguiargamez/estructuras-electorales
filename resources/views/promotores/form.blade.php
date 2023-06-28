@@ -3,8 +3,8 @@
     	<div class="row">
 
     		<div class="col-md-12">
-    			<h2 class="mb-5">Datos del promotor</h2>
-    			<div class="row">	
+    			<h2 class="mb-5">Datos del coordinador</h2>
+    			<div class="row">
     				<div class="row mb-7">
 						<div class="col-md-4 col-xl-3">
 							<div class="position-relative d-flex align-items-center">
@@ -24,26 +24,27 @@
 							</div>
 						</div>
 
-						<div class="col-md-4 col-xl-3" id="dvSection" style="display: none;">
-							<div class="position-relative d-flex align-items-center">
-								<div class="symbol symbol-20px me-4 position-absolute ms-4">
-									<i class="fa fa-location-dot"></i>
-								</div>
-								<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Distrito" id="section_id" name="section_id"></select>
-							</div>
-						</div>
-
-						<div class="col-md-4 col-xl-3" id="dvPromoter" style="display: none;">
+						<div class="col-md-4 col-xl-3" id="dvCoordinator" style="display: none;">
 							<div class="position-relative d-flex align-items-center">
 								<div class="symbol symbol-20px me-4 position-absolute ms-4">
 									<i class="fa fa-people-arrows"></i>
 								</div>
-								<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Distrito" id="promoter_id" name="promoter_id"></select>
+								<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Coordinador" id="coordinator_id" name="coordinator_id"></select>
 							</div>
 						</div>
+
+						<div class="col-md-4 col-xl-3">
+							<div class="position-relative d-flex align-items-center">
+								<div class="symbol symbol-20px me-4 position-absolute ms-4">
+									<i class="fas fa-person-booth"></i>
+								</div>
+								<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Sección del promotor" id="section_promoter" name="section_promoter" />
+							</div>					
+						</div>
+					
 					</div>
 
-					<h2 class="mb-5">Datos del promovido</h2>
+					<h2 class="mb-5">Datos del promotor</h2>
 
 					<div class="row">
 						<div class="col-md-8 col-xl-8">
@@ -224,6 +225,15 @@
 										<select class="form-select ps-12 removeIsInvalidSelect" aria-label="Ocupacion" id="activity_id" name="activity_id"></select>
 									</div>
 								</div>
+
+								<div class="col-md-4 col-xl-4">
+									<div class="position-relative d-flex align-items-center">
+										<div class="symbol symbol-20px me-4 position-absolute ms-4">
+											<i class="fas fa-hashtag"></i>
+										</div>
+										<input class="form-control form-control-lg ps-12 removeIsInvalid" type="text" placeholder="Meta" id="goal" name="goal" />
+									</div>					
+								</div>
 							</div>							
 						</div>
 
@@ -274,7 +284,7 @@
 	    		</div>
 
 	    		<div class="row">
-	    			<h2 class="mb-5">Medios de contacto del promovido</h2>
+	    			<h2 class="mb-5">Medios de contacto del promotor</h2>
 
 	    			<div class="row mb-7">	
 						<div class="col-md-3 col-xl-3">

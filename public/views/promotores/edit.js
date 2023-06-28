@@ -5,7 +5,7 @@ $(document).ready(
     function() {
         loadData();
 
-        $('.btn-edit-promovido').attr('onclick', 'confirmUpdate("frmPromovido")');
+        $('.btn-edit-promotor').attr('onclick', 'confirmUpdate("frmPromotor")');
         $('#has_social_networks').on('change', function() {
           if( this.value == 1 )
             $('#dvRedesSociales').show();
@@ -20,29 +20,31 @@ $(document).ready(
     }
 );
 
+
 function loadData()
  {
     /**
-     * 06 de Junio 2023
-     * Cargar los datos del promovido seleccionado.
+     * 23 de Junio 2023
+     * Cargar los datos del promotor seleccionado.
      * */
 
-    vidPromovido=$('#id').val();
+    vidPromotor=$('#id').val();
     $.ajax({
         type: 'GET',
-        url: vuri + '/promovido/get-datos',
+        url: vuri + '/promotor/get-datos',
         dataType: "JSON",
         data: {
             method: 'show',
-            id_promovido: vidPromovido
+            id_promotor: vidPromotor
         },
         success: function(vresponse, vtextStatus, vjqXHR) {
             var vrespuesta=vresponse.respuesta;
+            //console.log(vrespuesta);
+
             if ( parseInt(vresponse.codigo) == 1 ) {
 
-                let municipio = vrespuesta.municipality_id;       
-                let section = vrespuesta.section_id;       
-                let coordinator = vrespuesta.promoter_id;       
+                let municipio = vrespuesta.municipality_id;
+                let coordinator = vrespuesta.coordinator_id;  
 
                 $.each(vresponse.respuesta, function ( key, data ) {        
                     if ( data != null || data != '' ) {  
@@ -78,18 +80,18 @@ function loadData()
                                 getActivities(data);
                               break;
                             case 'district_id':
-                                getDistrictLocalMunicipality(data, municipio, section, coordinator);
+                                getDistrictLocal(data, municipio, coordinator);
                               break;
                             default:
                                 $('#' + key).val(data);
                               break;                              
                         }                                              
                     }
-                });              
+                });
 
-                load_ine(vrespuesta.credential_front, vrespuesta.credential_back);                
+                load_ine(vrespuesta.credential_front, vrespuesta.credential_back);
 
-            }                
+            }
         },
         error: function(vjqXHR, vtextStatus, verrorThrown){ }
     });   
@@ -150,7 +152,7 @@ function update(idFormulario)
     if ( validaForm(idFormulario) ) {
         $.ajax({
             type: "POST",
-            url: vuri + '/promovidos/update',
+            url: vuri + '/promotores/update',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -158,7 +160,7 @@ function update(idFormulario)
             processData: false,
             contentType: false,
             beforeSend: function() {
-                $(".btn-edit-promovido").prop('disabled', true);
+                $(".btn-edit-promotor").prop('disabled', true);
             },
             success: function(vresponse, vtextStatus, vjqXHR) {  
                 
@@ -173,26 +175,26 @@ function update(idFormulario)
                 if ( vresponse.codigo == 1 ) {
                     setTimeout(
                         function () {
-                            window.location = vuri + '/promovidos';
+                            window.location = vuri + '/promotores';
                         },
                         1500
                     );
                 }
 
                 if ( vresponse.codigo == 0 )
-                    $(".btn-edit-promovido").prop('disabled', false);
+                    $(".btn-edit-promotor").prop('disabled', false);
                                
             },
             error: function(vjqXHR, vtextStatus, verrorThrown) {
                 var jsonString= vjqXHR.responseJSON;        
-                $(".btn-edit-promovido").prop('disabled', false);                
+                $(".btn-edit-promotor").prop('disabled', false);                
             },
             complete: function() {}
         });
     }
  }
 
-function getDistrictLocalMunicipality(vdataSelect=0, vmunicipality=0, vsection=0, vcoordinator=0)
+function getDistrictLocal(vdataSelect=0, vmunicipality=0, vcoordinator=0)
  {
     id_distrito = vdataSelect;
     _edit = 1;
@@ -210,7 +212,7 @@ function getDistrictLocalMunicipality(vdataSelect=0, vmunicipality=0, vsection=0
                 html+='<option>'+response.respuesta[i].dtto_loc+'</option>';
             }
             $('#district_id').html(html);            
-            $('#district_id').attr('onChange', 'onChangeMunicipioDtto('+ vmunicipality +', '+ vsection +', '+ vcoordinator +')');
+           $('#district_id').attr('onChange', 'onChangeDtto('+ vmunicipality +','+ vcoordinator +')');
 
             if (vdataSelect != 0 )
                 $('#district_id').val(vdataSelect).trigger('change');
@@ -219,37 +221,32 @@ function getDistrictLocalMunicipality(vdataSelect=0, vmunicipality=0, vsection=0
     });
  }
 
-function onChangeMunicipioDtto(vmunicipality=0, vsection=0, vcoordinator=0)
+function onChangeDtto(vmunicipality=0, vcoordinator=0)
  {
     var id=$("#district_id").val();
     if(_edit > 1)
     {
-        vmunicipality=0;
-        vsection=0;
+        vmunicipality=0;       
         vcoordinator=0;
     }   
     
     if ( id != "" ) {      
-        $('#promoter_id').empty();
-        $('#dvPromoter').hide();
-        $('#section_id').empty();
-        $('#dvSection').hide();
+        $('#coordinator_id').empty();
+        $('#dvCoordinator').hide();        
         $('#municipality_id').val('').trigger('change');
         $('#dvMunicipality').show();
-        getMunicipality_Dtto(vmunicipality, vsection, vcoordinator, id);
+        getMunicipality(vmunicipality, vcoordinator, id);
     }
     else {
         $('#municipality_id').empty();        
-        $('#dvMunicipality').hide();
-        $('#section_id').empty();
-        $('#dvSection').hide();
-        $('#promoter_id').empty();
-        $('#dvPromoter').hide();
+        $('#dvMunicipality').hide();        
+        $('#coordinator_id').empty();
+        $('#dvCoordinator').hide();
     }
  }
 
-function getMunicipality_Dtto(selectOpt=0, selectSection=0, selectCoordinator=0, dtto_loc)
- {  
+function getMunicipality(selectOpt=0, selectCoordinator=0, dtto_loc)
+ {      
     $.ajax({
         type: "GET",
         url: vuri + '/type/municipality',
@@ -264,7 +261,7 @@ function getMunicipality_Dtto(selectOpt=0, selectSection=0, selectCoordinator=0,
                 html+='<option value='+json.respuesta[i].municipality_key+'>'+json.respuesta[i].municipality+'</option>';
             }
             $('#municipality_id').html(html);
-            $('#municipality_id').attr('onChange', 'onChangeSectionMpio('+ selectSection +', '+ selectCoordinator + ', ' + dtto_loc +')');
+            $('#municipality_id').attr('onChange', 'onChangeMpio('+ selectCoordinator + ', ' + dtto_loc +')');
             
             if (selectOpt != 0 ) {                
                 $('#municipality_id').val(selectOpt).trigger('change');
@@ -274,38 +271,30 @@ function getMunicipality_Dtto(selectOpt=0, selectSection=0, selectCoordinator=0,
     });
  }
 
-function onChangeSectionMpio(section=0, coordinator=0, dtto_loc=0)
+ function onChangeMpio(coordinator, dtto_loc)
  {
-    if(_edit == 2)
-    {
+    if(_edit==2){
+        _edit=3;
         coordinator=0;
-        section=0;
-        _edit = 3;
-    }  
-
+    }
     var id=$("#municipality_id").val();
-    
     if ( id != "" ) {
-        $('#dvSection').show();
-        $('#promoter_id').empty();
-        $('#dvPromoter').hide();
-        getSectionMpio(section, coordinator, dtto_loc, id);
+        $('#dvCoordinator').show();        
+        $('#coordinator_id').val('').trigger('change');
+        getCoordinators(coordinator, dtto_loc, id);
     }
     else {
-        $('#section_id').empty();
-        $('#dvSection').hide();
-        $('#promoter_id').empty();
-        $('#dvPromoter').hide();
+        $('#coordinator_id').empty();
+        $('#dvCoordinator').hide();       
     }
  }
 
-
-function getSectionMpio(selectOpt=0, coordinator=0, dtto_loc=0, mpio)
- {    
-
+function getCoordinators(selectOpt=0, dtto_loc=0, mpio)
+ {      
+    _edit=2;
     $.ajax({
         type: "GET",
-        url: vuri + '/type/sections',
+        url: vuri + '/type/municipality-coordinator',
         data: {
             method: 'get',
             municipality: mpio,
@@ -313,61 +302,14 @@ function getSectionMpio(selectOpt=0, coordinator=0, dtto_loc=0, mpio)
         },
         success: function(json) {
             var html ='';
-                html+='<option value="">--- Seccion ---</option>';
-            for ( var i=0; i<json.respuesta.length; i++ ) {
-                html+='<option value='+json.respuesta[i].section+'>'+json.respuesta[i].section+'</option>';
-            }
-            $('#section_id').html(html);
-            $('#section_id').attr('onChange', 'onChangePromoterSection('+ coordinator +')');
-           
-            if (selectOpt != 0 ) {                
-                $('#section_id').val(selectOpt).trigger('change');
-            }
-        },
-        error: function(json) { }
-    });
- }
-
-function onChangePromoterSection(coordinator)
- {    
-    if(_edit==2){
-        _edit=3;
-        coordinator=0;
-    }
-
-    var id=$("#section_id").val();
-
-    if ( id != "" ) {
-        $('#dvPromoter').show();
-        getPromotersSection(coordinator, id);
-    }
-    else {
-        $('#promoter_id').empty();
-        $('#dvPromoter').hide();
-    }
- }
-
-function getPromotersSection(selectOpt=0, section)
- {      
-    _edit=2;
-
-    $.ajax({
-        type: "GET",
-        url: vuri + '/type/promoters',
-        data: {
-            method: 'get',
-            section_id: section
-        },
-        success: function(json) {
-            var html ='';
-                html+='<option value="">--- Promotor ---</option>';
+                html+='<option value="">--- Coordinador ---</option>';
             for ( var i=0; i<json.respuesta.length; i++ ) {
                 html+='<option value='+json.respuesta[i].id+'>'+json.respuesta[i].coordinator+'</option>';
             }
-            $('#promoter_id').html(html);
+            $('#coordinator_id').html(html);
            
             if (selectOpt != 0 ) {                
-                $('#promoter_id').val(selectOpt).trigger('change');
+                $('#coordinator_id').val(selectOpt).trigger('change');
             }
         },
         error: function(json) { }
