@@ -269,4 +269,82 @@ class CombosController extends Controller
         }
         return response()->json($vresponse, $vHTTPCode);
     }
+
+    public function district_coordinator(Request $vrequest)
+    {
+        // Descripción: Función REST API al catalogo de coordinators district
+        // Creación: Jueves 29 de Junio de 2023
+        // Versión: 1.0.0
+
+        $vHTTPCode=200;
+        $vresponse=['codigo'=>1, 'mensaje'=>'Exito', 'icono'=>'success'];
+        try {
+            $vfilter=array();
+            switch ($vrequest->method) {
+                case 'show':
+                        $vresponse['respuesta']=clsStructureCoordinators::findOrFail($vrequest->id);
+                    break;
+                case 'get':
+                        $local_district=$vrequest->input('local_district');
+                       
+                        if ( isset($local_district) ) {
+                            $vfilter['local_district']=$local_district;
+                        }
+                        
+                        $vresponse['respuesta']=clsStructureCoordinators::queryToDBCoordinatorDistrict($vfilter)->get();
+                    break;
+                default:
+                    $vresponse=['codigo'=>0, 'mensaje'=>'Lo sentimos! Metodo no definido.', 'icono'=>'warning'];
+                  break;
+            }
+        }
+        catch (Exception $vexception) {
+            $vHTTPCode=500;
+            $vresponse=[
+                'codigo'=>-1,
+                'mensaje'=>'Error en el servidor! Comuniquese con su administrador '. $vexception->getMessage(),
+                'icono'=>'danger'
+            ];
+        }
+        return response()->json($vresponse, $vHTTPCode);
+    }
+
+    public function municipality_dtto(Request $vrequest)
+    {
+        // Descripción: Función REST API al catalogo de municipios de un distrito local
+        // Creación: Jueves 28 de Junio de 2023
+        // Versión: 1.0.0
+
+        $vHTTPCode=200;
+        $vresponse=['codigo'=>1, 'mensaje'=>'Exito', 'icono'=>'success'];
+        try {
+            $vfilter=array();
+            switch ($vrequest->method) {
+                case 'show':
+                        $vresponse['respuesta']=clsStructure::findOrFail($vrequest->id);
+                    break;
+                case 'get':
+                        $dtto=$vrequest->input('dtto');
+                        
+                        if ( isset($dtto) ) {
+                            $vfilter['dtto_loc']=$dtto;
+                        }                        
+                        
+                        $vresponse['respuesta']=clsStructure::queryToDBDistrictMpio($vfilter)->get();
+                    break;
+                default:
+                    $vresponse=['codigo'=>0, 'mensaje'=>'Lo sentimos! Metodo no definido.', 'icono'=>'warning'];
+                  break;
+            }
+        }
+        catch (Exception $vexception) {
+            $vHTTPCode=500;
+            $vresponse=[
+                'codigo'=>-1,
+                'mensaje'=>'Error en el servidor! Comuniquese con su administrador '. $vexception->getMessage(),
+                'icono'=>'danger'
+            ];
+        }
+        return response()->json($vresponse, $vHTTPCode);
+    }    
  }

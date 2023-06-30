@@ -39,6 +39,4 @@ class Structure extends Model
 
         return $query;
     }
-
-
 }

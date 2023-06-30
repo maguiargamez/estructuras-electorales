@@ -80,6 +80,12 @@ class clsStructure extends Model
             });
         }
 
+        if ( array_key_exists('id_mpio', $vfiltros )) {
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vfiltros) {               
+                $vsql->where('structures.municipality_key', $vfiltros['id_mpio']);
+            });
+        }
+
         $vqueryToDB=$vqueryToDB->whereNull('structures.deleted_at');
         return $vqueryToDB;
      }
