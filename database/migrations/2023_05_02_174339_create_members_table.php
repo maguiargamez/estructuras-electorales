@@ -44,9 +44,9 @@ return new class extends Migration
 
             $table->boolean('is_validated')->default(false);
             $table->boolean('was_supported')->default(false);
-
-            $table->binary('credential_front')->nullable();
-            $table->binary('credential_back')->nullable();
+            
+            $table->string('credential_front', 255)->nullable();
+            $table->string('credential_back', 255)->nullable();
 
             $table->timestamps();
             $table->softDeletes();
