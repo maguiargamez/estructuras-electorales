@@ -122,7 +122,7 @@ class CoordinadorMpalController extends Controller
                         unset($vflmember, $vflcoordinatorMpio); 
                     }
                     else {
-                        $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrada, por favor verifiquelo.'];
+                        $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado. Por favor verifiquelo.'];
                     }
                 }
                 else

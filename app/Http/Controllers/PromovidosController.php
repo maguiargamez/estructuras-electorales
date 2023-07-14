@@ -113,7 +113,7 @@ class PromovidosController extends Controller
 		                unset($vflmember, $vflpromoted);
 	            	}
 		            else {
-		                $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado como promovido.'];
+		                $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado. Por favor verifiquelo.'];
 		            }
 		        }
 		        else
@@ -273,7 +273,7 @@ class PromovidosController extends Controller
 
                     }
                     else {
-                        $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado como promovido.'];
+                        $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado. Por favor verifiquelo.'];
                     }
                 }
                 else

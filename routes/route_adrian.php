@@ -10,6 +10,8 @@ use App\Http\Controllers\CombosController;
 Route::get('/home', [DashboardController::class, 'index'])->name('dashboard.home'); 
 
 Route::get('panel-control/result-index', [DashboardController::class, 'result_data']);
+Route::get('panel-control/promovidos/{id_municipio}/municipio', [DashboardController::class, 'promovidos_municipio']);
+Route::get('panel-control/promovidos/municipio/results', [DashboardController::class, 'getPromovidosMpio']);
 
 /*Ruta para los coordinadores distritales*/
 Route::resource('coordinador-distrital', CoordinadorDttoController::class)->except(['show']);

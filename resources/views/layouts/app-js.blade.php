@@ -5,7 +5,7 @@
 		<title>Estructuras electorales</title>
 		<meta charset="utf-8" />		
 		
-		<meta property="og:locale" content="en_US" />
+		<meta property="og:locale" content="es_ES" />
 		<meta property="og:site_name" content="Estructuras electorales" />
 		@yield('meta')
 		<link rel="shortcut icon" href="{{ asset('img/logos/favicon.ico') }}" />
@@ -92,8 +92,6 @@
 		<script>var hostUrl = "{{ asset('metronic/assets/') }}/";</script>
         <script src="{{ asset('metronic/assets/plugins/global/plugins.bundle.js') }}"></script>
         <script src="{{ asset('metronic/assets/js/scripts.bundle.js') }}"></script>
-        <!-- <script src="{{ asset('metronic/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script> -->
-
 
         @yield('js')
 

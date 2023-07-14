@@ -90,6 +90,32 @@ class clsStructure extends Model
         return $vqueryToDB;
      }
 
+    public static function queryToDBCoordinatorMpio($vfiltros=[])
+     {
+
+        $vqueryToDB=clsStructure::select(
+            'structures.municipality',
+            'structures.section_type',
+            'structures.section_type',
+            'structures.local_district',
+            'members.firstname',
+            'members.lastname'
+
+        ); 
+
+        $vqueryToDB = $vqueryToDB->leftJoin('structure_coordinators', 'structure_coordinators.municipality_key', '=', 'structures.municipality_key');
+        $vqueryToDB = $vqueryToDB->leftJoin('members', 'members.id', '=', 'structure_coordinators.member_id');
+
+        if ( array_key_exists('id_mpio', $vfiltros )) {
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vfiltros) {               
+                $vsql->where('structures.municipality_key', $vfiltros['id_mpio']);
+            });
+        }
+
+        $vqueryToDB=$vqueryToDB->whereNull('structures.deleted_at');
+        return $vqueryToDB;
+     }
+
 
     public static function queryToDBSectionsMpio($vfiltros=[])
      {
@@ -149,4 +175,52 @@ class clsStructure extends Model
         $vqueryToDB=$vqueryToDB->orderBy('id', 'DESC');
         return $vqueryToDB;
      }
+
+    public static function queryToSectionWithPromoteds($vfiltros=[])
+    {
+        $vqueryToDB=clsStructure::select(
+            'structures.section',
+            DB::raw('
+                (
+                    SELECT
+                         count( DISTINCT structure_promoteds.structure_id ) as total
+                    FROM
+                        structure_promoteds
+                    JOIN structures as s ON structure_promoteds.structure_id = s.id     
+                    
+                    WHERE   
+                        structure_promoteds.structure_id = structures.id and
+                        structure_promoteds.deleted_at IS NULL 
+                ) as total'
+            )            
+        );     
+        
+        $vqueryToDB=$vqueryToDB->orderBy('total', 'ASC');
+        return $vqueryToDB;
+    }
+
+    public static function queryToMunicipalityWithPromoteds($vfiltros=[])
+    {
+        $vqueryToDB=clsStructure::select(
+            'structures.municipality_key',
+            'structures.municipality',
+            DB::raw('
+                (
+                    SELECT
+                         count( DISTINCT structure_promoteds.structure_id ) as total
+                    FROM
+                        structure_promoteds
+                    JOIN structures as s ON structure_promoteds.structure_id = s.id     
+                    
+                    WHERE   
+                        structure_promoteds.structure_id = structures.id and
+                        structure_promoteds.deleted_at IS NULL 
+                ) as total'
+            )            
+        );     
+        
+        $vqueryToDB=$vqueryToDB->groupBy('municipality_key');
+        $vqueryToDB=$vqueryToDB->orderBy('total', 'ASC');
+        return $vqueryToDB;
+    }
 }

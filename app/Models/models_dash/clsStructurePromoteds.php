@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 class clsStructurePromoteds extends Model
-
  {
 
     use SoftDeletes;
@@ -83,7 +82,51 @@ class clsStructurePromoteds extends Model
             });
         }
 
+        if ( array_key_exists('position_id', $vfiltros) ) {
+            $filtro= $vfiltros["position_id"];
+            $vqueryToDB= $vqueryToDB->where( function($sql) use ($filtro){
+                    $sql->where("members.position_id", $filtro);
+                });
+        }
+
         $vqueryToDB=$vqueryToDB->whereNull('structure_promoteds.deleted_at');
         return $vqueryToDB;
      }
+
+    public static function queryToDBCountPromoteds($vfiltros=[])
+     {
+
+        $vqueryToDB=clsStructurePromoteds::select(
+            DB::raw('COUNT(structure_promoteds.id) as total_promovidos')           
+        );    
+    
+        $vqueryToDB=$vqueryToDB->whereNull('structure_promoteds.deleted_at');
+        return $vqueryToDB;
+     }
+
+    public static function queryToDBPromotedsByMpio($vfiltros=[])
+     {
+
+        $vqueryToDB=clsStructurePromoteds::select(            
+            'members.firstname',
+            'members.lastname',
+            'members.electoral_key_validity',
+            'members.electoral_key',
+            'members.curp',
+            'members.section'            
+        );    
+       
+        $vqueryToDB = $vqueryToDB->join('members', 'members.id', '=', 'structure_promoteds.member_id');
+        $vqueryToDB = $vqueryToDB->join('structures', 'structures.id', '=', 'structure_promoteds.structure_id');
+
+        if ( array_key_exists('id_municipio', $vfiltros )) {
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vfiltros) {               
+                $vsql->where('structures.municipality_key', $vfiltros['id_municipio']);
+            });
+        }
+       
+        $vqueryToDB=$vqueryToDB->whereNull('structure_promoteds.deleted_at');
+        return $vqueryToDB;
+     }
+     
 }

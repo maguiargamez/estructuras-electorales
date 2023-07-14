@@ -70,7 +70,7 @@
 @endsection
 
 @section('js')  
-	<script src="{{ asset('metronic/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>s
+	<script src="{{ asset('metronic/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
 	<script src="{{ asset('views/coordinadores/distrital/index.js') }}"></script> 
 @endsection
 
