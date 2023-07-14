@@ -11,10 +11,10 @@ use DB;
 use File;
 
 class PromotoresController extends Controller
-{
+ {
 	public function index()
      {
-        ///return view('promovidos.index');
+        return view('promotores.index');
      }
 
 	public function create()
@@ -62,76 +62,73 @@ class PromotoresController extends Controller
         $vdatosMember['political_organization'] = $is_organization;
 
         try {
-        		DB::beginTransaction();       		
-                if( !empty($vdatosSection) )
-                {
-                    $queryIne=clsMembers::queryToDB(['clave_elector' => $vrequest->electoral_key])->first();
-                    if ( empty($queryIne) ) {
+    		DB::beginTransaction();       		
+            if( !empty($vdatosSection) ) {
+                $queryIne=clsMembers::queryToDB(['clave_elector' => $vrequest->electoral_key])->first();
+                if ( empty($queryIne) ) {
 
-                        $vrutaCarpeta= date('Y') .'/'. $vrequest->electoral_key;
+                    $vrutaCarpeta= date('Y') .'/'. $vrequest->electoral_key;
 
-                        $vflmember = new clsMembers;               
-                        
-                        $vineFrente = $vrequest->file('ine_frente');
-                        if ($vrequest->hasFile('ine_frente')) {
-                            if ($vrequest->file('ine_frente')->isValid()) {
-                                $extF = $vineFrente->extension();
-                                $vnombreArchivoExtension= $vrequest->electoral_key.'_front.'.$extF;     
-                                $vrequest->file('ine_frente')->storeAs($vrutaCarpeta, $vnombreArchivoExtension, 'file-electoral');
+                    $vflmember = new clsMembers;               
+                    
+                    $vineFrente = $vrequest->file('ine_frente');
+                    if ($vrequest->hasFile('ine_frente')) {
+                        if ($vrequest->file('ine_frente')->isValid()) {
+                            $extF = $vineFrente->extension();
+                            $vnombreArchivoExtension= $vrequest->electoral_key.'_front.'.$extF;     
+                            $vrequest->file('ine_frente')->storeAs($vrutaCarpeta, $vnombreArchivoExtension, 'file-electoral');
 
-                                $vdatosMember["credential_front"]=$vrutaCarpeta .'/'. $vnombreArchivoExtension;
-                            }
+                            $vdatosMember["credential_front"]=$vrutaCarpeta .'/'. $vnombreArchivoExtension;
                         }
-                        
-                        $vineTrasero = $vrequest->file('ine_reverso');
-                        if ($vrequest->hasFile('ine_reverso')) {
-                            if ($vrequest->file('ine_reverso')->isValid()) {
-                                $extB = $vineTrasero->extension();
-                                $vnombreArchivoExtension= $vrequest->electoral_key.'_back.'.$extB; 
-                                $vrequest->file('ine_reverso')->storeAs($vrutaCarpeta, $vnombreArchivoExtension, 'file-electoral');
-
-                                $vdatosMember["credential_back"]=$vrutaCarpeta .'/'. $vnombreArchivoExtension;
-                            }
-                        }  
-
-                        //Seccion de la credencial del promotor
-                        $vdatosSectionIne = clsStructure::queryToDBSelect(['section'=>$vrequest->section])->first();
-                        $vdatosMember['section_type'] = $vdatosSectionIne->section_type;
-                        $vdatosMember['birth_date'] = FormatDate::formatDates($vdatosMember['birth_date']);  
-
-                        $vflmember->fill($vdatosMember)->save();
-
-
-                        /*Guardo los datos del promotor*/
-                        $mpio = clsMunicipality::find($vrequest->municipality_id);
-                        $vflpromoter = new clsStructureCoordinators;
-                        $vdatosPromoter['election_id'] = 1;
-                        $vdatosPromoter['position_id'] = 5;
-                        $vdatosPromoter['structure_coordinator_id'] = $vrequest->coordinator_id;
-                        $vdatosPromoter['member_id'] = $vflmember->id;
-                        $vdatosPromoter['entity_key'] = 7;
-                        $vdatosPromoter['entity'] = 'Chiapas';
-                        $vdatosPromoter['local_district'] = $vrequest->district_id;
-                        $vdatosPromoter['municipality_key'] = $vrequest->municipality_id;
-                        $vdatosPromoter['municipality'] = $mpio->municipality;
-                        $vdatosPromoter['section'] = $vrequest->section_promoter;
-                        $vdatosPromoter['goal'] = $vrequest->goal;
-
-                        $vflpromoter->fill($vdatosPromoter)->save();
-
-                        $vresponse=['icono'=>'success', 'codigo'=> 1, 'mensaje'=> 'El Promotor fue insertado exitosamente.'];
-                        unset($vflmember, $vdatosPromoter);
-
                     }
-                    else {
-                        $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado. Por favor verifiquelo.'];
-                    }
+                    
+                    $vineTrasero = $vrequest->file('ine_reverso');
+                    if ($vrequest->hasFile('ine_reverso')) {
+                        if ($vrequest->file('ine_reverso')->isValid()) {
+                            $extB = $vineTrasero->extension();
+                            $vnombreArchivoExtension= $vrequest->electoral_key.'_back.'.$extB; 
+                            $vrequest->file('ine_reverso')->storeAs($vrutaCarpeta, $vnombreArchivoExtension, 'file-electoral');
+
+                            $vdatosMember["credential_back"]=$vrutaCarpeta .'/'. $vnombreArchivoExtension;
+                        }
+                    }  
+
+                    //Seccion de la credencial del promotor
+                    $vdatosSectionIne = clsStructure::queryToDBSelect(['section'=>$vrequest->section])->first();
+                    $vdatosMember['section_type'] = $vdatosSectionIne->section_type;
+                    $vdatosMember['birth_date'] = FormatDate::formatDates($vdatosMember['birth_date']);  
+
+                    $vflmember->fill($vdatosMember)->save();
+
+                    /*Guardo los datos del promotor*/
+                    $mpio = clsMunicipality::find($vrequest->municipality_id);
+                    $vflpromoter = new clsStructureCoordinators;
+                    $vdatosPromoter['election_id'] = 1;
+                    $vdatosPromoter['position_id'] = 5;
+                    $vdatosPromoter['structure_coordinator_id'] = $vrequest->coordinator_id;
+                    $vdatosPromoter['member_id'] = $vflmember->id;
+                    $vdatosPromoter['entity_key'] = 7;
+                    $vdatosPromoter['entity'] = 'Chiapas';
+                    $vdatosPromoter['local_district'] = $vrequest->district_id;
+                    $vdatosPromoter['municipality_key'] = $vrequest->municipality_id;
+                    $vdatosPromoter['municipality'] = $mpio->municipality;
+                    $vdatosPromoter['section'] = $vrequest->section_promoter;
+                    $vdatosPromoter['goal'] = $vrequest->goal;
+
+                    $vflpromoter->fill($vdatosPromoter)->save();
+
+                    $vresponse=['icono'=>'success', 'codigo'=> 1, 'mensaje'=> 'El Promotor fue insertado exitosamente.'];
+                    unset($vflmember, $vdatosPromoter);
+
                 }
-                else
-                {
-                    $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La seccion ingresada no se encuentra registrada. Por favor verifiquelo.'];
+                else {
+                    $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado como promotor.'];
                 }
-                DB::commit();
+            }
+            else {
+                $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La seccion ingresada no se encuentra registrada. Por favor verifiquelo.'];
+            }
+            DB::commit();
         }
         catch ( Exception $e ) {
             DB::rollback();
@@ -235,70 +232,68 @@ class PromotoresController extends Controller
         }
 
         try {
-                DB::beginTransaction();
+            DB::beginTransaction();
                 
-                    if( !empty($vdatosSection) )
-                    {
-                        $queryIne=clsMembers::queryToDB(['clave_elector' => $vrequest->electoral_key, 'id_promovidoUPD'=>$vflpromoter->member_id])->first();
-                        if ( empty($queryIne) ) {
+            if( !empty($vdatosSection) ) {
+                $queryIne=clsMembers::queryToDB(['clave_elector' => $vrequest->electoral_key, 'id_promovidoUPD'=>$vflpromoter->member_id])->first();
+                if ( empty($queryIne) ) {
 
-                                $vrutaCarpeta= date('Y') .'/'. $vrequest->electoral_key;
-                                //actualizo los datos personales
-                                $vineFrente = $vrequest->file('ine_frente');
-                                if ($vrequest->hasFile('ine_frente')) {
-                                    if ($vrequest->file('ine_frente')->isValid()) {
-                                        $extF = $vineFrente->extension();
-                                        $vnombreArchivoExtension= $vrequest->electoral_key.'_front.'.$extF;                               
-                                        $vrequest->file('ine_frente')->storeAs($vrutaCarpeta, $vnombreArchivoExtension, 'file-electoral');
+                        $vrutaCarpeta= date('Y') .'/'. $vrequest->electoral_key;
+                        //actualizo los datos personales
+                        $vineFrente = $vrequest->file('ine_frente');
+                        if ($vrequest->hasFile('ine_frente')) {
+                            if ($vrequest->file('ine_frente')->isValid()) {
+                                $extF = $vineFrente->extension();
+                                $vnombreArchivoExtension= $vrequest->electoral_key.'_front.'.$extF;                               
+                                $vrequest->file('ine_frente')->storeAs($vrutaCarpeta, $vnombreArchivoExtension, 'file-electoral');
 
-                                        $vdatosMember["credential_front"]=$vrutaCarpeta .'/'. $vnombreArchivoExtension;
-                                    }
-                                }
-                                
-                                $vineTrasero = $vrequest->file('ine_reverso');
-                                if ($vrequest->hasFile('ine_reverso')) {
-                                    if ($vrequest->file('ine_reverso')->isValid()) {
-                                        $extB = $vineTrasero->extension();
-                                        $vnombreArchivoExtension= $vrequest->electoral_key.'_back.'.$extB;
-                                        $vrequest->file('ine_reverso')->storeAs($vrutaCarpeta, $vnombreArchivoExtension, 'file-electoral');
-
-                                        $vdatosMember["credential_back"]=$vrutaCarpeta .'/'. $vnombreArchivoExtension;
-                                    }
-                                }
-
-                                //Seccion de la credencial del promotor
-                                $vdatosSectionIne = clsStructure::queryToDBSelect(['section'=>$vrequest->section])->first();
-                                $vdatosMember['section_type'] = $vdatosSectionIne->section_type;                                
-                                $vdatosMember['birth_date'] = FormatDate::formatDates($vdatosMember['birth_date']);               
-
-                                $vflmember->fill($vdatosMember)->save();   
-
-                                //actualizo al promotor  
-                                $mpio = clsMunicipality::find($vrequest->municipality_id);                              
-                                $vdatosPromoter['structure_coordinator_id'] = $vrequest->coordinator_id;
-                                $vdatosPromoter['member_id'] = $vflmember->id;                             
-                                $vdatosPromoter['local_district'] = $vrequest->district_id;
-                                $vdatosPromoter['municipality_key'] = $vrequest->municipality_id;
-                                $vdatosPromoter['municipality'] = $mpio->municipality;
-                                $vdatosPromoter['section'] = $vrequest->section_promoter;
-                                $vdatosPromoter['goal'] = $vrequest->goal;
-
-                                $vflpromoter->fill($vdatosPromoter)->save();
-
-                                $vresponse=['icono'=>'success', 'codigo'=> 1, 'mensaje'=> 'El Promotor fue actualizado exitosamente.'];
-                                unset($vflmember, $vdatosPromoter);
-
+                                $vdatosMember["credential_front"]=$vrutaCarpeta .'/'. $vnombreArchivoExtension;
+                            }
                         }
-                        else {
-                            $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado. Por favor verifiquelo.'];
-                        }
-                    }
-                    else
-                    {
-                        $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La seccion ingresada no se encuentra registrada. Por favor verifiquelo.'];
-                    }
+                        
+                        $vineTrasero = $vrequest->file('ine_reverso');
+                        if ($vrequest->hasFile('ine_reverso')) {
+                            if ($vrequest->file('ine_reverso')->isValid()) {
+                                $extB = $vineTrasero->extension();
+                                $vnombreArchivoExtension= $vrequest->electoral_key.'_back.'.$extB;
+                                $vrequest->file('ine_reverso')->storeAs($vrutaCarpeta, $vnombreArchivoExtension, 'file-electoral');
 
-                DB::commit();
+                                $vdatosMember["credential_back"]=$vrutaCarpeta .'/'. $vnombreArchivoExtension;
+                            }
+                        }
+
+                        //Seccion de la credencial del promotor
+                        $vdatosSectionIne = clsStructure::queryToDBSelect(['section'=>$vrequest->section])->first();
+                        $vdatosMember['section_type'] = $vdatosSectionIne->section_type;                                
+                        $vdatosMember['birth_date'] = FormatDate::formatDates($vdatosMember['birth_date']);               
+
+                        $vflmember->fill($vdatosMember)->save();   
+
+                        //actualizo al promotor  
+                        $mpio = clsMunicipality::find($vrequest->municipality_id);                              
+                        $vdatosPromoter['structure_coordinator_id'] = $vrequest->coordinator_id;
+                        $vdatosPromoter['member_id'] = $vflmember->id;                             
+                        $vdatosPromoter['local_district'] = $vrequest->district_id;
+                        $vdatosPromoter['municipality_key'] = $vrequest->municipality_id;
+                        $vdatosPromoter['municipality'] = $mpio->municipality;
+                        $vdatosPromoter['section'] = $vrequest->section_promoter;
+                        $vdatosPromoter['goal'] = $vrequest->goal;
+
+                        $vflpromoter->fill($vdatosPromoter)->save();
+
+                        $vresponse=['icono'=>'success', 'codigo'=> 1, 'mensaje'=> 'El Promotor fue actualizado exitosamente.'];
+                        unset($vflmember, $vdatosPromoter);
+
+                }
+                else {
+                    $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado como promotor.'];
+                }
+            }
+            else {
+                $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La seccion ingresada no se encuentra registrada. Por favor verifiquelo.'];
+            }
+
+            DB::commit();
         }
         catch ( Exception $vexception ) {
             DB::rollBack();
@@ -312,4 +307,48 @@ class PromotoresController extends Controller
             
         return response()->json($vresponse, $vstatusHTTP, [], JSON_HEX_APOS|JSON_HEX_QUOT); 
      }
-}
+
+    public function getResult(Request $vrequest)
+     {
+        // Descripción: Función para consultar los coordinadores municipales
+        // Creación: Jueves, 29 de Juio de 2023
+        // Versión: 1.0.0
+
+        $vHTTPCode=200;
+        $vresponse=['codigo'=>1, 'mensaje'=>'Exito', 'icono'=>'success'];
+        try {
+            $vfilter=array();
+            switch ($vrequest->method) {
+                case 'show':                    
+                    // $vresponse['respuesta']=clsStructureCoordinators::queryToDBDetailCoordinator(['id_coordinator'=>$vrequest->id_coordinador])->first();
+                  break;
+                case 'get':
+                    $local_district=$vrequest->local_district;
+                    $municipality_key=$vrequest->municipality_key;
+                    $electoral_key=$vrequest->electoral_key;
+                    $structure_coordinator_id=$vrequest->structure_coordinator_id;
+
+                    if ( isset($local_district) )           $vfilter['local_district']=$vrequest->local_district;
+                    if ( isset($municipality_key) )         $vfilter['municipality_key']=$vrequest->municipality_key;
+                    if ( isset($electoral_key) )            $vfilter['electoral_key']=$vrequest->electoral_key;
+                    if ( isset($structure_coordinator_id) ) $vfilter['structure_coordinator_id']=$vrequest->structure_coordinator_id;
+
+                    $vfilter['position_id']=5;   
+                    $vresponse['respuesta']=clsStructureCoordinators::queryToDBListPromotor($vfilter)->get();
+                  break;
+                default:
+                    $vresponse=['codigo'=>0, 'mensaje'=>'Lo sentimos! Metodo no definido.', 'icono'=>'warning'];
+                  break;
+            }
+        }
+        catch (Exception $vexception) {
+            $vHTTPCode=500;
+            $vresponse=[
+                'codigo'=>-1,
+                'mensaje'=>'Error en el servidor! Comuniquese con su administrador '. $vexception->getMessage(),
+                'icono'=>'danger'
+            ];
+        }
+        return response()->json($vresponse, $vHTTPCode);
+     }
+ }

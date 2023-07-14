@@ -122,7 +122,7 @@ class CoordinadorMpalController extends Controller
                         unset($vflmember, $vflcoordinatorMpio); 
                     }
                     else {
-                        $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrado. Por favor verifiquelo.'];
+                        $vresponse=['icono'=>'warning', 'codigo'=> 0, 'mensaje'=> 'La clave de elector '. $vrequest->electoral_key .', ya ha sido registrada, por favor verifiquelo.'];
                     }
                 }
                 else
@@ -295,9 +295,16 @@ class CoordinadorMpalController extends Controller
                     $vresponse['respuesta']=clsStructureCoordinators::queryToDBDetailCoordinator(['id_coordinator'=>$vrequest->id_coordinador])->first();
                   break;
                 case 'get':
-                    $filtro=array();
-                    $filtro['position_id'] = 3;   
-                    $vresponse['respuesta']=clsStructureCoordinators::queryToDBListCoordinator($filtro)->get();
+                    $local_district=$vrequest->local_district;
+                    $municipality_key=$vrequest->municipality_key;
+                    $electoral_key=$vrequest->electoral_key;
+
+                    if ( isset($local_district) )   $vfilter['local_district']=$vrequest->local_district;
+                    if ( isset($municipality_key) ) $vfilter['municipality_key']=$vrequest->municipality_key;
+                    if ( isset($electoral_key) )    $vfilter['electoral_key']=$vrequest->electoral_key;
+
+                    $vfilter['position_id'] = 3;   
+                    $vresponse['respuesta']=clsStructureCoordinators::queryToDBListCoordinator($vfilter)->get();
                   break;
                 default:
                     $vresponse=['codigo'=>0, 'mensaje'=>'Lo sentimos! Metodo no definido.', 'icono'=>'warning'];

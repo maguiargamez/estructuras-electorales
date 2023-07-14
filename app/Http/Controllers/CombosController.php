@@ -9,6 +9,7 @@ use App\Models\models_dash\clsMunicipality;
 use App\Models\models_dash\clsStructureCoordinators;
 use App\Models\models_dash\clsActivities;
 use App\Models\models_dash\clsStructure;
+use App\Models\models_dash\clsPromotedTypes;
 
 class CombosController extends Controller
  {
@@ -157,6 +158,39 @@ class CombosController extends Controller
         return response()->json($vresponse, $vHTTPCode);
      }
 
+    public function promoted_type(Request $vrequest)
+     {
+        // Descripción: Función REST API a tipos de promovidos
+        // Creación: Viernes 14 de Julio de 2023
+        // Versión: 1.0.0
+
+        $vHTTPCode=200;
+        $vresponse=['codigo'=>1, 'mensaje'=>'Exito', 'icono'=>'success'];
+        try {
+            $vfilter=array();
+            switch ($vrequest->method) {
+                case 'show':
+                        $vresponse['respuesta']=clsPromotedTypes::queryToDB($vrequest->id);
+                    break;
+                case 'get':
+                        $vresponse['respuesta']=clsPromotedTypes::queryToDB($vfilter)->get();
+                    break;
+                default:
+                    $vresponse=['codigo'=>0, 'mensaje'=>'Lo sentimos! Metodo no definido.', 'icono'=>'warning'];
+                  break;
+            }
+        }
+        catch (Exception $vexception) {
+            $vHTTPCode=500;
+            $vresponse=[
+                'codigo'=>-1,
+                'mensaje'=>'Error en el servidor! Comuniquese con su administrador '. $vexception->getMessage(),
+                'icono'=>'danger'
+            ];
+        }
+        return response()->json($vresponse, $vHTTPCode);
+     }
+
     public function promoters(Request $vrequest)
      {
         // Descripción: Función REST API al catalogo de coordinators
@@ -173,9 +207,15 @@ class CombosController extends Controller
                     break;
                 case 'get':
                         $section_id=$vrequest->input('section_id');
+                        $coordinator_id=$vrequest->input('coordinator_id');
+                        
                         if ( isset($section_id) ) {
                             $vfilter['section_id']=$section_id;
                         }
+                        if ( isset($coordinator_id) ) {
+                            $vfilter['coordinator_id']=$coordinator_id;
+                        }
+
                         $vresponse['respuesta']=clsStructureCoordinators::queryToDB($vfilter)->get();
                     break;
                 default:
@@ -228,7 +268,7 @@ class CombosController extends Controller
      }
 
     public function municipality_coordinator(Request $vrequest)
-    {
+     {
         // Descripción: Función REST API al catalogo de coordinators municipales
         // Creación: Viernes 23 de Junio de 2023
         // Versión: 1.0.0
@@ -268,10 +308,10 @@ class CombosController extends Controller
             ];
         }
         return response()->json($vresponse, $vHTTPCode);
-    }
+     }
 
     public function district_coordinator(Request $vrequest)
-    {
+     {
         // Descripción: Función REST API al catalogo de coordinators district
         // Creación: Jueves 29 de Junio de 2023
         // Versión: 1.0.0
@@ -307,10 +347,10 @@ class CombosController extends Controller
             ];
         }
         return response()->json($vresponse, $vHTTPCode);
-    }
+     }
 
     public function municipality_dtto(Request $vrequest)
-    {
+     {
         // Descripción: Función REST API al catalogo de municipios de un distrito local
         // Creación: Jueves 28 de Junio de 2023
         // Versión: 1.0.0
@@ -346,5 +386,5 @@ class CombosController extends Controller
             ];
         }
         return response()->json($vresponse, $vHTTPCode);
-    }    
+     }    
  }

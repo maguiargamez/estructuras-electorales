@@ -47,20 +47,15 @@ Route::get('/coordinadores/crear', CoordinatorForm::class)->name('coordinadores.
 Route::get('/coordinadores/{tree}/editar', CoordinatorForm::class)->name('coordinadores.edit');
 
 //Promovidos
-Route::get('/promovidos', PromotedsStructures::class)->name('promovidos.index');
+// Route::get('/promovidos', PromotedsStructures::class)->name('promovidos.index');
 Route::prefix('promovidos')->group(function () {
     Route::get('/seguimiento/{promoted}', PromotedsComments::class)->name('promovidos.segumiento.index');
     Route::get('/apoyos/{promoted}', PromotedsSupports::class)->name('promovidos.apoyos.index');
 });
 
 //Promotores
-Route::get('/promotores', PromotersStructures::class)->name('promotores.index');
-
-
-
+// Route::get('/promotores', PromotersStructures::class)->name('promotores.index');
 
 Route::get('/elecciones', Elections::class)->name('elecicones.index');
 
- require base_path('routes/route_adrian.php');
-
-
+require base_path('routes/route_adrian.php');
