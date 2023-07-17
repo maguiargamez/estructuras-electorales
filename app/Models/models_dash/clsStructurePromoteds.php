@@ -40,11 +40,13 @@ class clsStructurePromoteds extends Model
 
         $vqueryToDB=clsStructurePromoteds::select(
             'structure_promoteds.id',
-            'structure_promoteds.structure_id',
             'structure_promoteds.structure_coordinator_id as promoter_id',
+            'structure_coordinators_c.id as coordinator_id',
+            'structure_promoteds.structure_id',
             'structure_coordinators.section as section_id',
             'structure_coordinators.municipality_key as municipality_id',
             'structure_coordinators.local_district as district_id',
+            'structure_coordinators.municipality',            
             'members.firstname',
             'members.lastname',
             'members.sex',
@@ -70,63 +72,81 @@ class clsStructurePromoteds extends Model
             'members.facebook',
             'members.instagram',
             'members.twitter',
-            'members.tiktok'
-        );    
-       
-        $vqueryToDB = $vqueryToDB->join('members', 'members.id', '=', 'structure_promoteds.member_id');
-        $vqueryToDB = $vqueryToDB->join('structure_coordinators', 'structure_coordinators.id', '=', 'structure_promoteds.structure_coordinator_id');
+            'members.tiktok',
+            DB::raw("
+                CONCAT(
+                    members.firstname,' ',
+                    members.lastname
+                )  AS promovido"
+            ),
+            DB::raw(
+                "CONCAT(
+                    members_p.firstname,' ',
+                    members_p.lastname
+                )  AS promotor"
+            ),
+            DB::raw(
+                "CONCAT(
+                    members_c.firstname,' ',
+                    members_c.lastname
+                )  AS coordinador"
+            )
+        );       
+        $vqueryToDB=$vqueryToDB->join('members', 'structure_promoteds.member_id' ,'=', 'members.id');
+        $vqueryToDB=$vqueryToDB->join('structure_coordinators', 'structure_promoteds.structure_coordinator_id' ,'=', 'structure_coordinators.id');
+        $vqueryToDB=$vqueryToDB->join('members AS members_p', 'structure_coordinators.member_id' ,'=', 'members_p.id');        
+        $vqueryToDB=$vqueryToDB->join('structure_coordinators AS structure_coordinators_c', 'structure_coordinators.structure_coordinator_id' ,'=', 'structure_coordinators_c.id');
+        $vqueryToDB=$vqueryToDB->join('members AS members_c', 'structure_coordinators_c.member_id' ,'=', 'members_c.id');
 
         if ( array_key_exists('id_promovido', $vfiltros )) {
             $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vfiltros) {               
                 $vsql->where('structure_promoteds.id', $vfiltros['id_promovido']);
             });
         }
-
-        if ( array_key_exists('position_id', $vfiltros) ) {
-            $filtro= $vfiltros["position_id"];
-            $vqueryToDB= $vqueryToDB->where( function($sql) use ($filtro){
-                    $sql->where("members.position_id", $filtro);
-                });
-        }
-
-        $vqueryToDB=$vqueryToDB->whereNull('structure_promoteds.deleted_at');
-        return $vqueryToDB;
-     }
-
-    public static function queryToDBCountPromoteds($vfiltros=[])
-     {
-
-        $vqueryToDB=clsStructurePromoteds::select(
-            DB::raw('COUNT(structure_promoteds.id) as total_promovidos')           
-        );    
-    
-        $vqueryToDB=$vqueryToDB->whereNull('structure_promoteds.deleted_at');
-        return $vqueryToDB;
-     }
-
-    public static function queryToDBPromotedsByMpio($vfiltros=[])
-     {
-
-        $vqueryToDB=clsStructurePromoteds::select(            
-            'members.firstname',
-            'members.lastname',
-            'members.electoral_key_validity',
-            'members.electoral_key',
-            'members.curp',
-            'members.section'            
-        );    
-       
-        $vqueryToDB = $vqueryToDB->join('members', 'members.id', '=', 'structure_promoteds.member_id');
-        $vqueryToDB = $vqueryToDB->join('structures', 'structures.id', '=', 'structure_promoteds.structure_id');
-
-        if ( array_key_exists('id_municipio', $vfiltros )) {
-            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vfiltros) {               
-                $vsql->where('structures.municipality_key', $vfiltros['id_municipio']);
+        if(array_key_exists('local_district', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["local_district"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.local_district', $vdatoFiltro);
+            });
+        } 
+        if(array_key_exists('municipality_key', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["municipality_key"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.municipality_key', $vdatoFiltro);
             });
         }
-       
+        if(array_key_exists('electoral_key', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["electoral_key"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('members.electoral_key', $vdatoFiltro);
+            });
+        }
+        if(array_key_exists('sex', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["sex"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('members.sex', $vdatoFiltro);
+            });
+        }
+        if(array_key_exists('coordinator_id', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["coordinator_id"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators_c.id', $vdatoFiltro);
+            });
+        }
+        if(array_key_exists('promoter_id', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["promoter_id"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.id', $vdatoFiltro);
+            });
+        }
+        if(array_key_exists('promoted_type_id', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["promoted_type_id"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_promoteds.promoted_type_id', $vdatoFiltro);
+            });
+        }
+        
         $vqueryToDB=$vqueryToDB->whereNull('structure_promoteds.deleted_at');
         return $vqueryToDB;
      }
-     
 }

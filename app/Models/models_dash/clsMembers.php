@@ -126,8 +126,6 @@ class clsMembers extends Model
             DB::raw('COUNT(members.id) as total_sexo')           
         );
     
-        $vqueryToDB = $vqueryToDB->leftJoin('structure_promoteds', 'members.id', '=', 'structure_promoteds.member_id');
-
         if ( array_key_exists('sexo', $vfiltros) ) {
             $filtro= $vfiltros["sexo"];
             $vqueryToDB= $vqueryToDB->where( function($sql) use ($filtro){
@@ -141,7 +139,7 @@ class clsMembers extends Model
             });
         }
 
-        $vqueryToDB=$vqueryToDB->whereNull('structure_promoteds.deleted_at')->first();
+        $vqueryToDB=$vqueryToDB->whereNull('members.deleted_at')->first();
         return $vqueryToDB;
      }
 
@@ -159,15 +157,14 @@ class clsMembers extends Model
             DB::raw("YEAR(CURDATE())-YEAR(birth_date) + IF(DATE_FORMAT(CURDATE(),'%m-%d') > DATE_FORMAT(birth_date,'%m-%d'), 0 , -1 )  AS edad_persona"),
         );
 
-        $queryToDB = $queryToDB->leftJoin('structure_promoteds', 'members.id', '=', 'structure_promoteds.member_id');
-        
+              
         if ( array_key_exists('promovido', $vfiltros )) {
             $queryToDB=$queryToDB->where( function($vsql) use ($vfiltros) {               
                 $vsql->where('members.position_id', 6);
             });
         }
 
-        $queryToDB=$queryToDB->whereNull('structure_promoteds.deleted_at');
+        $queryToDB=$queryToDB->whereNull('members.deleted_at');
 
         return $queryToDB;
      }

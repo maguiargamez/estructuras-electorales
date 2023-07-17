@@ -60,8 +60,13 @@ class clsStructureCoordinators extends Model
             $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
                 $vsql->where('structure_coordinators.id', $vdatoFiltro);
             });
-        }    
-   
+        }
+        if(array_key_exists('coordinator_id', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["coordinator_id"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.structure_coordinator_id', $vdatoFiltro);
+            });
+        }
         if(array_key_exists('section_id', $vfiltros)) {
             $vdatoFiltro=$vfiltros["section_id"];
             $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
@@ -72,7 +77,7 @@ class clsStructureCoordinators extends Model
         $vqueryToDB=$vqueryToDB->where('structure_coordinators.election_id', 1);
         $vqueryToDB=$vqueryToDB->where('structure_coordinators.position_id', 5);
 
-        $vqueryToDB=$vqueryToDB->orderBy('structure_coordinators.id', 'DESC');
+        $vqueryToDB=$vqueryToDB->orderBy('members.firstname', 'ASC');
         return $vqueryToDB;
      }
 
@@ -209,10 +214,103 @@ class clsStructureCoordinators extends Model
             $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
                 $vsql->where('structure_coordinators.position_id', $vdatoFiltro);
             });
+        }
+        if(array_key_exists('local_district', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["local_district"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.local_district', $vdatoFiltro);
+            });
+        } 
+        if(array_key_exists('municipality_key', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["municipality_key"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.municipality_key', $vdatoFiltro);
+            });
+        } 
+        if(array_key_exists('electoral_key', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["electoral_key"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('members.electoral_key', $vdatoFiltro);
+            });
         } 
         
         $vqueryToDB=$vqueryToDB->where('structure_coordinators.election_id', 1);
 
+        $vqueryToDB=$vqueryToDB->orderBy('structure_coordinators.id', 'DESC');
+        return $vqueryToDB;
+     }
+
+    public static function queryToDBListPromotor($vfiltros=[])
+     {
+        /**
+         * Consulta principal a la tabla coordinators para traer los promotores
+         * 02 de Junio de 2023
+         * */
+        $vqueryToDB=clsStructureCoordinators::select(
+            'structure_coordinators.id',
+            DB::raw("
+                CONCAT(
+                    members.firstname,' ',
+                    members.lastname
+                )  AS promotor"
+            ),
+            DB::raw(
+                "CONCAT(
+                    members_depend.firstname,' ',
+                    members_depend.lastname
+                )  AS coordinador"
+            ),
+            'members.electoral_key',
+            'members.electoral_key_validity',
+            'positions.description as position',
+            'structure_coordinators.local_district',
+            'structure_coordinators.municipality'
+        );
+        
+        $vqueryToDB = $vqueryToDB->leftJoin('members', 'members.id', '=', 'structure_coordinators.member_id');
+        $vqueryToDB = $vqueryToDB->leftJoin('positions', 'positions.id', '=', 'structure_coordinators.position_id');
+        $vqueryToDB = $vqueryToDB->leftJoin('structure_coordinators as struc_coord_depend', 'structure_coordinators.structure_coordinator_id', '=', 'struc_coord_depend.id');
+        $vqueryToDB = $vqueryToDB->leftJoin('members as members_depend', 'struc_coord_depend.member_id', '=', 'members_depend.id');
+
+        if(array_key_exists('id_coordinator', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["id_coordinator"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.id', $vdatoFiltro);
+            });
+        }    
+   
+        if(array_key_exists('position_id', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["position_id"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.position_id', $vdatoFiltro);
+            });
+        }
+        if(array_key_exists('local_district', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["local_district"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.local_district', $vdatoFiltro);
+            });
+        } 
+        if(array_key_exists('municipality_key', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["municipality_key"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.municipality_key', $vdatoFiltro);
+            });
+        }
+        if(array_key_exists('electoral_key', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["electoral_key"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('members.electoral_key', $vdatoFiltro);
+            });
+        }
+        if(array_key_exists('structure_coordinator_id', $vfiltros)) {
+            $vdatoFiltro=$vfiltros["structure_coordinator_id"];
+            $vqueryToDB=$vqueryToDB->where( function($vsql) use ($vdatoFiltro) {
+                $vsql->where('structure_coordinators.structure_coordinator_id', $vdatoFiltro);
+            });
+        }
+                
+        $vqueryToDB=$vqueryToDB->where('structure_coordinators.election_id', 1);
         $vqueryToDB=$vqueryToDB->orderBy('structure_coordinators.id', 'DESC');
         return $vqueryToDB;
      }
