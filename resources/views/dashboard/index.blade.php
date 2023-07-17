@@ -13,7 +13,7 @@
 
 @section('breadcrumbs')
 	<li class="breadcrumb-item text-muted">
-		<a href="#" class="text-muted text-hover-primary">Inicio</a>
+		<a class="text-muted text-hover-primary">Inicio</a>
 	</li>
 	<li class="breadcrumb-item">
 		<span class="bullet bg-gray-400 w-5px h-2px"></span>
@@ -33,7 +33,7 @@
 						<div class="position-relative text-center fs-2x z-index-2 fw-bold text-white mb-1">
 							<span class="me-2">Elección {{ $election->electionType->description }}
 							<span class="position-relative d-inline-block text-danger">
-								<a href="#" class="text-danger opacity-75-hover">{{ $election->description }}</a>
+								<a class="text-danger opacity-75-hover">{{ $election->description }}</a>
 								<span class="position-absolute opacity-50 bottom-0 start-0 border-4 border-danger border-bottom w-100"></span>
 							</span></span>
 							<div class="text-center">
@@ -84,7 +84,7 @@
                                 <div class="fs-1 fw-bolder text-warning">
                                     <span id="spTotalCordEstatal"></span>
                                 </div>
-                                <a href="#" class="text-warning fw-bold fs-6">
+                                <a class="text-warning fw-bold fs-6">
                                 	<span class="text-warning fw-semibold fs-3">Coordinadores estatales</span>
                                 </a>
                             </div>
@@ -96,7 +96,7 @@
                                 <div class="fs-1 fw-bolder text-primary">
                                     <span id="spTotalCordDistrital"></span>
                                 </div>
-                                <a href="#" class="text-primary fw-bold fs-6">
+                                <a class="text-primary fw-bold fs-6">
                                 	<span class="text-primary fw-semibold fs-3">Coordinadores distritales</span>
                                 </a>
                             </div>
@@ -110,7 +110,7 @@
                                 <div class="fs-1 fw-bolder text-danger">
                                     <span id="spTotalCordMunicipal"></span>
                                 </div>
-                                <a href="#" class="text-danger fw-bold fs-6 mt-2">
+                                <a class="text-danger fw-bold fs-6 mt-2">
                                 	<span class="text-danger fw-semibold fs-3">Coordinadores municipales</span>
                                 </a>
                             </div>
@@ -122,7 +122,7 @@
                                 <div class="fs-1 fw-bolder text-success">
                                     <span id="spTotalPromovidos"></span>
                                 </div>
-                                <a href="#" class="text-success fw-bold fs-6 mt-2">
+                                <a class="text-success fw-bold fs-6 mt-2">
                                 	<span class="text-success fw-semibold fs-3">Simpatizantes promovidos</span>
                                 </a>
                             </div>
@@ -151,10 +151,10 @@
                                 <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Opciones de filtrado</div>
                             </div>
                             <div class="menu-item px-3">
-                                <a href="#" class="menu-link px-3">Ver por distritos</a>
+                                <a class="menu-link px-3">Ver por distritos</a>
                             </div>
                             <div class="menu-item px-3">
-                                <a href="#" class="menu-link flex-stack px-3">Ver por municipio</a>
+                                <a class="menu-link flex-stack px-3">Ver por municipio</a>
                             </div>                                                        
                         </div>
                     </div>                                              
@@ -191,7 +191,7 @@
                         <div class="col-lg-12 text-gray-800 text-center">
                             <div class="card bg-light-info card-xl-stretch mb-xl-1">
                                 <div class="card-body my-1">
-                                    <a href="#" class="card-title fw-bolder text-info fs-5 mb-3 d-block">
+                                    <a class="card-title fw-bolder text-info fs-5 mb-3 d-block">
                                         <span id="spPromovidosAv"></span> Promovidos de <span id="spPromovidosTot">
                                     </a>
                                     <div class="py-1">
@@ -285,7 +285,7 @@
 	                        <div class="position-absolute translate-middle start-50 top-50 d-flex flex-column flex-center">
 	                            <span class="fs-2qx fw-bolder"><span id="spTotalSexo"></span></span>
 	                            <span class="fs-6 fw-bold text-gray-400">
-	                                <a href="#" class="text-gray-700">
+	                                <a class="text-gray-700">
 	                                    Simpatizantes
 	                                </a>
 	                            </span>
@@ -299,7 +299,7 @@
 	                            <div class="d-flex align-items-center me-2">
 	                                <div class="bullet bg-primery me-3"></div>
 	                                <div>
-	                                    <a href="#" class="fs-6 text-gray-800 text-hover-primery fw-bolder">Hombres</a>
+	                                    <a class="fs-6 text-gray-800 text-hover-primery fw-bolder">Hombres</a>
 	                                    <div class="fs-7 text-muted fw-bold mt-1">
 	                                        Porcentaje: <span id="spPorcentajeHombres"></span> %
 	                                    </div>
@@ -313,7 +313,7 @@
 	                            <div class="d-flex align-items-center me-2">
 	                                <div class="bullet bg-danger me-3"></div>
 	                                <div>
-	                                    <a href="#" class="fs-6 text-gray-800 text-hover-danger fw-bolder">Mujeres</a>
+	                                    <a class="fs-6 text-gray-800 text-hover-danger fw-bolder">Mujeres</a>
 	                                    <div class="fs-7 text-muted fw-bold mt-1">
 	                                        Porcentaje del: <span id="spPorcentajeMujeres"></span> %
 	                                    </div>
@@ -343,7 +343,7 @@
 	                        <div class="position-absolute translate-middle start-50 top-50 d-flex flex-column flex-center">
 	                            <span class="fs-2qx fw-bolder"><span id="spTotalVotantes"></span></span>
 	                            <span class="fs-6 fw-bold text-gray-400">
-	                                <a href="#" class="text-gray-700">
+	                                <a class="text-gray-700">
 	                                    Votantes
 	                                </a>
 	                            </span>
@@ -357,7 +357,7 @@
 	                            <div class="d-flex align-items-center me-2">
 	                                <div class="bullet bg-success me-3"></div>
 	                                <div>
-	                                    <a href="#" class="fs-6 text-gray-800 text-hover-success fw-bolder">18 años</a>
+	                                    <a class="fs-6 text-gray-800 text-hover-success fw-bolder">18 años</a>
 	                                    <div class="fs-7 text-muted fw-bold mt-1">
 	                                        Porcentaje: <span id="spPorcentajeMenores"></span> %
 	                                    </div>
@@ -371,7 +371,7 @@
 	                            <div class="d-flex align-items-center me-2">
 	                                <div class="bullet bg-warning me-3"></div>
 	                                <div>
-	                                    <a href="#" class="fs-6 text-gray-800 text-hover-warning fw-bolder">Mas de 18 años</a>
+	                                    <a class="fs-6 text-gray-800 text-hover-warning fw-bolder">Mas de 18 años</a>
 	                                    <div class="fs-7 text-muted fw-bold mt-1">
 	                                        Porcentaje del: <span id="spPorcentajeMayores"></span> %
 	                                    </div>
